@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     // Base qui permet de se déplacer au clavier
 	public float moveSpeed;
-    public float jumpForce; // 300 max
+    public float jumpForce;
     public bool isJumping = false;
 	public Rigidbody2D rb;
 	private Vector3 velocity = Vector3.zero;
@@ -21,7 +21,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        // Déplacement au microphone
         foreach (var device in Microphone.devices)
         {
             Debug.Log("Name: " + device);
@@ -31,8 +30,8 @@ public class PlayerMovement : MonoBehaviour
         //Debug.Log(Microphone.GetDeviceCaps);
         rb = GetComponent<Rigidbody2D>();
         _audio = GetComponent<AudioSource>();
-        _audio.clip = Microphone.Start(null, true, 10, 44100);
-        //_audio.clip = Microphone.Start("Microphone Array (Realtek High Definition Audio)", true, 10, 44100);
+        //_audio.clip = Microphone.Start("toto", true, 10, 44100);
+        _audio.clip = Microphone.Start("Microphone Array (Realtek High Definition Audio)", true, 10, 44100);
         _audio.loop = true;
         _audio.mute = false;
         while (!(Microphone.GetPosition(null) > 0)) {
@@ -44,47 +43,26 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // Déplacement au microphone
-        //Debug.Log("GetAverageVolume : "+GetAverageVolume());
+        Debug.Log("GetAverageVolume : "+GetAverageVolume());
         loudness = GetAverageVolume() * sensitivity;
-        //Debug.Log ("loudness : "+loudness);
-        //Debug.Log ("jumpLoudnessThreshold : "+jumpLoudnessThreshold);
-        if (loudness >= jumpLoudnessThreshold) {
-            Debug.Log("---------- Je saute ! ----------");
-            Debug.Log ("loudness : "+loudness);
-            Debug.Log ("jumpLoudnessThreshold : "+jumpLoudnessThreshold);
-            //rb.AddForce( Vector3.up * jumpForce);
-            isJumping = true;
-            horizontalMovement = moveSpeed * loudness * Time.deltaTime;
+        Debug.Log ("loudness : "+loudness);
+        if (loudness > jumpLoudnessThreshold || Input.GetKeyDown(KeyCode.Space)) {
+            rb.AddForce( Vector3.up * jumpForce);
         }
-        else if (loudness >= runLoudnessThreshold) {
-            horizontalMovement = moveSpeed * loudness * Time.deltaTime;
-        }
-        else {  // Déplacement au clavier
-            Debug.Log("---------- Clavier ! ----------");
-            horizontalMovement = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
-            if (Input.GetButtonDown("Jump"))
-            {
-                isJumping = true;
-            }
-        }
-        MovePlayer(horizontalMovement);
-        /*
+
         horizontalMovement = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
+        
         if (Input.GetButtonDown("Jump"))
         {
             isJumping = true;
         }
-        */
     }
 
     void FixedUpdate()
     {
-        // Déplacement au clavier
-        //MovePlayer(horizontalMovement);
+        MovePlayer(horizontalMovement);
     }
 
-    // Déplacement au clavier
     void MovePlayer(float _horizontalMovement)
     {
     	Vector3 targetVelocity = new Vector2(_horizontalMovement, rb.velocity.y);
@@ -97,7 +75,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    // Déplacement au microphone
     float GetAverageVolume() {
 
         float[] data = new float[256];
