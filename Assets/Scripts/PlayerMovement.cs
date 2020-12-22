@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -21,6 +22,11 @@ public class PlayerMovement : MonoBehaviour
     public float jumpLoudnessThreshold;
     public float runLoudnessThreshold;
     AudioSource _audio;
+
+    // Tiles
+    public Tile tile;
+    public Tilemap map;
+    private Vector3Int previous;
 
     void Start()
     {
@@ -58,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log ("loudness : "+loudness);
             Debug.Log ("jumpLoudnessThreshold : "+jumpLoudnessThreshold);
             //rb.AddForce( Vector3.up * jumpForce);
+            jumpForce = jumpForceMicrophone;
             isJumping = true;
             horizontalMovement = moveSpeed * Time.deltaTime;
         }
@@ -65,10 +72,13 @@ public class PlayerMovement : MonoBehaviour
             horizontalMovement = moveSpeed * Time.deltaTime;
         }
         else {  // Déplacement au clavier
+            Vector3Int currentCell = map.WorldToCell(transform.position);
+            currentCell.x += 1;
             Debug.Log("---------- Clavier ! ----------");
             horizontalMovement = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
             if (Input.GetButtonDown("Jump"))
             {
+                map.SetTile(currentCell, tile);
                 jumpForce = jumpForceKeyboard;
                 isJumping = true;
             }
@@ -79,6 +89,25 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             isJumping = true;
+        }
+        */
+    }
+
+    void LateUpdate()
+    {
+        /*
+        Vector3Int currentCell = map.WorldToCell(transform.position);
+        currentCell.x += 1;
+        if(currentCell != previous)
+        {
+            // set the new tile
+            map.SetTile(currentCell, tile);
+ 
+            // erase previous
+            map.SetTile(previous, null);
+ 
+            // save the new position for next frame
+            previous = currentCell;
         }
         */
     }
