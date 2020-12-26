@@ -78,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
             horizontalMovement = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
             if (Input.GetButtonDown("Jump"))
             {
-                map.SetTile(currentCell, tile);
+                //map.SetTile(currentCell, tile);
                 jumpForce = jumpForceKeyboard;
                 isJumping = true;
             }
