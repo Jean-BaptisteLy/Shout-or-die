@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
 
     // Tiles
     public Tile tile;
-    public Tilemap map;
+    public Tilemap tilemap;
     private Vector3Int previous;
 
     void Start()
@@ -72,13 +72,22 @@ public class PlayerMovement : MonoBehaviour
             horizontalMovement = moveSpeed * Time.deltaTime;
         }
         else {  // Déplacement au clavier
-            Vector3Int currentCell = map.WorldToCell(transform.position);
+            Vector3Int currentCell = tilemap.WorldToCell(transform.position);
             currentCell.x += 1;
             Debug.Log("---------- Clavier ! ----------");
+            Debug.Log(tilemap.GetTile(currentCell));
+
+            // https://docs.unity3d.com/ScriptReference/Tilemaps.Tilemap.GetCellCenterWorld.html
+            //Tilemap tilemap = transform.parent.GetComponent<Tilemap>();
+        	Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
+        	//transform.position = tilemap.GetCellCenterWorld(cellPosition);
+        	Debug.Log(tilemap.GetCellCenterWorld(cellPosition));
+
             horizontalMovement = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
             if (Input.GetButtonDown("Jump"))
             {
-                //map.SetTile(currentCell, tile);
+            	
+                //tilemap.SetTile(currentCell, tile);
                 jumpForce = jumpForceKeyboard;
                 isJumping = true;
             }
@@ -96,15 +105,15 @@ public class PlayerMovement : MonoBehaviour
     void LateUpdate()
     {
         /*
-        Vector3Int currentCell = map.WorldToCell(transform.position);
+        Vector3Int currentCell = tilemap.WorldToCell(transform.position);
         currentCell.x += 1;
         if(currentCell != previous)
         {
             // set the new tile
-            map.SetTile(currentCell, tile);
+            tilemap.SetTile(currentCell, tile);
  
             // erase previous
-            map.SetTile(previous, null);
+            tilemap.SetTile(previous, null);
  
             // save the new position for next frame
             previous = currentCell;
