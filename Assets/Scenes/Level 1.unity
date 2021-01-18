@@ -874,6 +874,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &891505016 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7818214282200244594, guid: 68719fb66ecaf9c4ca71927bfc0728c4, type: 3}
+  m_PrefabInstance: {fileID: 1094173843}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &891505017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 891505016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2beefa3a0e272410980bf82dc093b0c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: []
+  OnlyX: []
 --- !u!1001 &1094173843
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -927,6 +946,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7818214282200244593, guid: 68719fb66ecaf9c4ca71927bfc0728c4, type: 3}
       propertyPath: map
+      value: 
+      objectReference: {fileID: 227952526}
+    - target: {fileID: 7818214282200244593, guid: 68719fb66ecaf9c4ca71927bfc0728c4, type: 3}
+      propertyPath: tilemap
       value: 
       objectReference: {fileID: 227952526}
     - target: {fileID: 7818214282200244594, guid: 68719fb66ecaf9c4ca71927bfc0728c4, type: 3}
