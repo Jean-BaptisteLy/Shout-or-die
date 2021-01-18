@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class PickUpObject : MonoBehaviour
 {
+    PlayerStats ps;
+
     // Start is called before the first frame update
-    void Start()
-    {
-        
+    void Start(){
+        ps = GameObject.Find ("Player").GetComponent<PlayerStats>();
     }
 
     // Update is called once per frame
@@ -18,8 +19,8 @@ public class PickUpObject : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-    	if (collision.CompareTag("Player"))
-    	{
+    	if (collision.CompareTag("Player")){
+            ps.addCoin();
     		Destroy(gameObject);
     	}
     }
