@@ -16,6 +16,9 @@ public class LogWritter : MonoBehaviour{
     private double total_time;
     private IEnumerator coroutine;
 
+    private StreamWriter writer;
+    private string filePath;
+
     // Start is called before the first frame update
     void Start(){
         // Debug.Log("LogWritter started");
@@ -25,6 +28,11 @@ public class LogWritter : MonoBehaviour{
         // Log file identifier
         datetime = string.Format("data-{0:yyyy-MM-dd_hh-mm-ss}", DateTime.Now);
 
+        filePath = getPath();
+        writer = new StreamWriter(filePath);
+        writer.WriteLine("Time, Loudness");
+
+        // Write loudness info every 2 seconnds
         coroutine = WaitAndWrite();
         StartCoroutine(coroutine);
     }
@@ -60,22 +68,19 @@ public class LogWritter : MonoBehaviour{
             timeValues.Add(total_time.ToString());
             loudnessValues.Add(pm.loudness.ToString());
 
-            string filePath = getPath();
-    
-            StreamWriter writer = new StreamWriter(filePath);
-
-            writer.WriteLine("Time, Loudness");
 
             // iterate through values to be written
-            for (int i = 0; i < timeValues.Count; ++i) {
-                writer.WriteLine(timeValues[i] + "," + loudnessValues[i]);
-            }
+            // for (int i = 0; i < timeValues.Count; ++i) {
+            // writer.WriteLine(timeValues[i] + "," + loudnessValues[i]);
+            writer.WriteLine(total_time + "," + pm.loudness.ToString());
+            // }
         
             writer.Flush();
-            writer.Close();
             yield return new WaitForSeconds(2.0f);
         }
     }
+
+    void OnDestroy() => writer.Close();
 
     private string getPath(){
         // Debug.Log(Application.dataPath);
