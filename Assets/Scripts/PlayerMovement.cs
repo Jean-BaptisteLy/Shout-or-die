@@ -6,18 +6,23 @@ using UnityEngine.Tilemaps;
 public class PlayerMovement : MonoBehaviour
 {
     // Base qui permet de se déplacer au clavier
-    public float moveSpeed;
-    public float jumpForceKeyboard = 300.0f; // 300 max    
+    public float moveSpeed = 2000;
+    public float jumpForceKeyboard = 300.0f; // 300 max
+    public float jumpForce = 300.0f;
+    //public float jumpForce = 300.0f;
     public bool isJumping = false;
+    public bool isGrounded;
     public Rigidbody2D rb;
     private Vector3 velocity = Vector3.zero;
     private float horizontalMovement;
 
-    public float jumpForce;
+    public Transform groundCheck;
+    public float groundCheckRadius;
+    public LayerMask collisionLayers;
 
     // Microphone
-    public float jumpForceMicrophone = 10.0f; // 50 max
-    public float sensitivity = 100f;
+    public float jumpForceMicrophone = 300.0f; // 50 max
+    public float sensitivity = 300f;
     public float loudness = 0f;
     public float jumpLoudnessThreshold;
     public float runLoudnessThreshold;
@@ -28,12 +33,15 @@ public class PlayerMovement : MonoBehaviour
     public Tilemap tilemap;
     private Vector3Int previous;
 
+    // Tests
+    public float test = 0;
+
     void Start()
     {
         // Déplacement au microphone
         foreach (var device in Microphone.devices)
         {
-            Debug.Log("Name: " + device);
+            //Debug.Log("Name: " + device);
             //Debug.Log("Microphone.GetDeviceCaps : "+device.GetDeviceCaps);
         }
 
@@ -53,20 +61,23 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, collisionLayers);
+        //Debug.Log ("isGrounded : "+isGrounded);
         // Déplacement au microphone
         //Debug.Log("GetAverageVolume : "+GetAverageVolume());
         loudness = GetAverageVolume() * sensitivity;
         jumpForce = jumpForceMicrophone;
         //Debug.Log ("loudness : "+loudness);
         //Debug.Log ("jumpLoudnessThreshold : "+jumpLoudnessThreshold);
-        if (loudness >= jumpLoudnessThreshold) {
-            Debug.Log("---------- Je saute ! ----------");
-            Debug.Log ("loudness : "+loudness);
-            Debug.Log ("jumpLoudnessThreshold : "+jumpLoudnessThreshold);
+        if (loudness >= jumpLoudnessThreshold && isGrounded) {
+            //Debug.Log("---------- Je saute ! ----------");
+            //Debug.Log ("loudness : "+loudness);
+            //Debug.Log ("jumpLoudnessThreshold : "+jumpLoudnessThreshold);
             //rb.AddForce( Vector3.up * jumpForce);
-            jumpForce = jumpForceMicrophone;
+            //jumpForce = jumpForceMicrophone;
             isJumping = true;
             horizontalMovement = moveSpeed * Time.deltaTime;
+            test = 1;
         }
         else if (loudness >= runLoudnessThreshold) {
             horizontalMovement = moveSpeed * Time.deltaTime;
@@ -74,25 +85,25 @@ public class PlayerMovement : MonoBehaviour
         else {  // Déplacement au clavier
             Vector3Int currentCell = tilemap.WorldToCell(transform.position);
             currentCell.x += 1;
-            Debug.Log("---------- Clavier ! ----------");
-            Debug.Log(tilemap.GetTile(currentCell));
+            //Debug.Log("---------- Clavier ! ----------");
+            //Debug.Log(tilemap.GetTile(currentCell));
 
             // https://docs.unity3d.com/ScriptReference/Tilemaps.Tilemap.GetCellCenterWorld.html
             //Tilemap tilemap = transform.parent.GetComponent<Tilemap>();
         	Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
         	//transform.position = tilemap.GetCellCenterWorld(cellPosition);
-        	Debug.Log(tilemap.GetCellCenterWorld(cellPosition));
+        	//Debug.Log(tilemap.GetCellCenterWorld(cellPosition));
 
             horizontalMovement = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
-            if (Input.GetButtonDown("Jump"))
-            {
-            	
+            if (Input.GetButtonDown("Jump") && isGrounded)
+            {  	
                 //tilemap.SetTile(currentCell, tile);
                 jumpForce = jumpForceKeyboard;
                 isJumping = true;
+                test = 2;
             }
         }
-        MovePlayer(horizontalMovement);
+        //MovePlayer(horizontalMovement);
         /*
         horizontalMovement = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
         if (Input.GetButtonDown("Jump"))
@@ -121,10 +132,11 @@ public class PlayerMovement : MonoBehaviour
         */
     }
 
-    void FixedUpdate()
+    void FixedUpdate() // pour la physique
     {
+        //isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, collisionLayers);
         // Déplacement au clavier
-        //MovePlayer(horizontalMovement);
+        MovePlayer(horizontalMovement);
     }
 
     // Déplacement au clavier
@@ -135,6 +147,10 @@ public class PlayerMovement : MonoBehaviour
     
         if (isJumping == true)
         {
+            Debug.Log("test : "+test+" jumpForce : "+jumpForce);
+            Debug.Log("jumpForceKeyboard : "+jumpForceKeyboard);
+            Debug.Log("jumpForceMicrophone : "+jumpForceMicrophone);
+            Debug.Log("test : "+test+" jumpForce : "+jumpForce);
             rb.AddForce(new Vector2(0f, jumpForce));
             isJumping = false;
         }
@@ -152,5 +168,11 @@ public class PlayerMovement : MonoBehaviour
         }
 
         return (a/256f);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
     }
 }
