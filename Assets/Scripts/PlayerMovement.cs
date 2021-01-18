@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour
     // Base qui permet de se déplacer au clavier
     public float moveSpeed = 2000;
     public float jumpForceKeyboard = 300.0f; // 300 max
-    public float jumpForce = 300.0f;
+    public float jumpForce = 100.0f;
     //public float jumpForce = 300.0f;
     public bool isJumping = false;
     public bool isGrounded;
@@ -20,9 +20,14 @@ public class PlayerMovement : MonoBehaviour
     public float groundCheckRadius;
     public LayerMask collisionLayers;
 
+    // Gestion du saut en diagonale lorsqu'il y a un obstacle
+    public bool checkWall;
+    public Transform obstacleCheck;
+    public float obstacleCheckRadius;
+
     // Microphone
     public float jumpForceMicrophone = 300.0f; // 50 max
-    public float sensitivity = 300f;
+    public float sensitivity = 100f;
     public float loudness = 0f;
     public float jumpLoudnessThreshold;
     public float runLoudnessThreshold;
@@ -62,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, collisionLayers);
+        checkWall = Physics2D.OverlapCircle(obstacleCheck.position, obstacleCheckRadius, collisionLayers);
         //Debug.Log ("isGrounded : "+isGrounded);
         // Déplacement au microphone
         //Debug.Log("GetAverageVolume : "+GetAverageVolume());
@@ -69,6 +75,8 @@ public class PlayerMovement : MonoBehaviour
         jumpForce = jumpForceMicrophone;
         //Debug.Log ("loudness : "+loudness);
         //Debug.Log ("jumpLoudnessThreshold : "+jumpLoudnessThreshold);
+
+        // Saut
         if (loudness >= jumpLoudnessThreshold && isGrounded) {
             //Debug.Log("---------- Je saute ! ----------");
             //Debug.Log ("loudness : "+loudness);
@@ -76,13 +84,23 @@ public class PlayerMovement : MonoBehaviour
             //rb.AddForce( Vector3.up * jumpForce);
             //jumpForce = jumpForceMicrophone;
             isJumping = true;
-            horizontalMovement = moveSpeed * Time.deltaTime;
-            test = 1;
+            //horizontalMovement = moveSpeed * Time.deltaTime;
+            if (!checkWall) { // rien devant
+                horizontalMovement = moveSpeed * Time.deltaTime;
+                test = 1;
+            }
+            else { // y'a un mur
+                horizontalMovement = 0.0f;
+                jumpForce = 100.0f;
+                test = 2;
+            }
         }
+        // Déplacements au sol
         else if (loudness >= runLoudnessThreshold) {
             horizontalMovement = moveSpeed * Time.deltaTime;
         }
-        else {  // Déplacement au clavier
+        // Déplacement au clavier
+        else {
             Vector3Int currentCell = tilemap.WorldToCell(transform.position);
             currentCell.x += 1;
             //Debug.Log("---------- Clavier ! ----------");
@@ -100,10 +118,10 @@ public class PlayerMovement : MonoBehaviour
                 //tilemap.SetTile(currentCell, tile);
                 jumpForce = jumpForceKeyboard;
                 isJumping = true;
-                test = 2;
+                test = 0;
             }
         }
-        //MovePlayer(horizontalMovement);
+        MovePlayer(horizontalMovement);
         /*
         horizontalMovement = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
         if (Input.GetButtonDown("Jump"))
@@ -136,7 +154,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, collisionLayers);
         // Déplacement au clavier
-        MovePlayer(horizontalMovement);
+        //MovePlayer(horizontalMovement);
     }
 
     // Déplacement au clavier
@@ -145,6 +163,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 targetVelocity = new Vector2(_horizontalMovement, rb.velocity.y);
         rb.velocity = Vector3.SmoothDamp(rb.velocity, targetVelocity, ref velocity, .05f);
     
+        // saut vertical
         if (isJumping == true)
         {
             Debug.Log("test : "+test+" jumpForce : "+jumpForce);
@@ -174,5 +193,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
+        Gizmos.DrawWireSphere(obstacleCheck.position, obstacleCheckRadius);
     }
 }
