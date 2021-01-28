@@ -12,8 +12,8 @@ public class LogWritter : MonoBehaviour{
 
     private string datetime;
     private PlayerMovement pm;
-    private DateTime start_time;
-    private double total_time;
+    private DateTime startTime;
+    private double totalTime;
     private IEnumerator coroutine;
 
     private StreamWriter writer;
@@ -24,13 +24,13 @@ public class LogWritter : MonoBehaviour{
         // Debug.Log("LogWritter started");
         pm = gameObject.GetComponent<PlayerMovement>();
         
-        start_time = DateTime.Now;
+        startTime = DateTime.Now;
         // Log file identifier
         datetime = string.Format("data-{0:yyyy-MM-dd_hh-mm-ss}", DateTime.Now);
 
         filePath = getPath();
-        writer = new StreamWriter(filePath);
-        writer.WriteLine("Time, Loudness");
+        // writer = new StreamWriter(filePath); // to uncomment
+        // writer.WriteLine("Time, Loudness"); // to uncomment
 
         // Write loudness info every 2 seconnds
         coroutine = WaitAndWrite();
@@ -64,23 +64,23 @@ public class LogWritter : MonoBehaviour{
 
     private IEnumerator WaitAndWrite(){
         while(true){
-            total_time = (DateTime.Now - start_time).TotalSeconds;
-            timeValues.Add(total_time.ToString());
+            totalTime = (DateTime.Now - startTime).TotalSeconds;
+            timeValues.Add(totalTime.ToString());
             loudnessValues.Add(pm.loudness.ToString());
 
 
             // iterate through values to be written
             // for (int i = 0; i < timeValues.Count; ++i) {
             // writer.WriteLine(timeValues[i] + "," + loudnessValues[i]);
-            writer.WriteLine(total_time + "," + pm.loudness.ToString());
+            // writer.WriteLine(total_time + "," + pm.loudness.ToString()); // to uncomment
             // }
         
-            writer.Flush();
+            // writer.Flush(); // to uncomment
             yield return new WaitForSeconds(2.0f);
         }
     }
 
-    void OnDestroy() => writer.Close();
+    // void OnDestroy() => writer.Close(); // to uncomment
 
     private string getPath(){
         // Debug.Log(Application.dataPath);

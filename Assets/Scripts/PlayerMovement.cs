@@ -165,11 +165,12 @@ public class PlayerMovement : MonoBehaviour
     
         // saut vertical
         if (isJumping == true)
-        {
-            Debug.Log("test : "+test+" jumpForce : "+jumpForce);
-            Debug.Log("jumpForceKeyboard : "+jumpForceKeyboard);
-            Debug.Log("jumpForceMicrophone : "+jumpForceMicrophone);
-            Debug.Log("test : "+test+" jumpForce : "+jumpForce);
+        {   
+            // to uncomment
+            // Debug.Log("test : "+test+" jumpForce : "+jumpForce);
+            // Debug.Log("jumpForceKeyboard : "+jumpForceKeyboard);
+            // Debug.Log("jumpForceMicrophone : "+jumpForceMicrophone);
+            // Debug.Log("test : "+test+" jumpForce : "+jumpForce);
             rb.AddForce(new Vector2(0f, jumpForce));
             isJumping = false;
         }
