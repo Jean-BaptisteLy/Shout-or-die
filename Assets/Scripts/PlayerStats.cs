@@ -1,11 +1,16 @@
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
+using System.Text;
+using System.IO;
+using System;
 
 public class PlayerStats : MonoBehaviour
 {
     public int nbCoins = 0;
-    public float time = 0f;
+    public double totalTime;
+    public DateTime startingTime;
+    public DateTime endingTime;
     // Possible categories:
     // 0: slow and bad 
     // 1: fast but bad
@@ -26,8 +31,17 @@ public class PlayerStats : MonoBehaviour
         nbCoins++;
     }
 
-    public void updateTime(float newTime){
-        time = newTime;
+    public void initTime(){
+        startingTime = DateTime.Now;
     }
+
+    public void updateLevelEndingStats(){
+        endingTime = DateTime.Now;
+        totalTime = (endingTime - startingTime).TotalSeconds;
+        // write this info on log file
+        
+    }
+
+
     
 }
