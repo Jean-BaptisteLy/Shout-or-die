@@ -46,7 +46,9 @@ public class ProcessData : MonoBehaviour
     void Update(){
         
     }
-
+    public void processData(){
+        // put what we have on start here
+    }
     private string getPath(){
         // return Application.dataPath + "/../Data/data-2021-01-28_04-44-33.csv";
         return Application.dataPath + "/../Data/test.csv";
@@ -81,8 +83,17 @@ public class ProcessData : MonoBehaviour
 
         // to automatize
         int lastPlayedLevel = 1;
-        float fOne = gammaOne*coinsRatioList[lastPlayedLevel] + (1-gammaOne)*coinsRatioList[lastPlayedLevel-1];
-        float fTwo = gammaTwo*timeRatioList[lastPlayedLevel] + (1-gammaTwo)*timeRatioList[lastPlayedLevel-1];
+        float fOne;
+        float fTwo;
+
+        if (lastPlayedLevel == 0){
+            // do something else
+            fOne = coinsRatioList[lastPlayedLevel];
+            fTwo = timeRatioList[lastPlayedLevel];
+        }else{
+            fOne = gammaOne*coinsRatioList[lastPlayedLevel] + (1-gammaOne)*coinsRatioList[lastPlayedLevel-1];
+            fTwo = gammaTwo*timeRatioList[lastPlayedLevel] + (1-gammaTwo)*timeRatioList[lastPlayedLevel-1];
+        }
 
         if (fOne >= 0.5){
             if (fTwo >= 0.5){

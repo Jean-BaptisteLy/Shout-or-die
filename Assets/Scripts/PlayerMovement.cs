@@ -65,7 +65,11 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void Update()
-    {
+    {   
+        // to delete or reorganize
+        if (tilemap == null){
+            tilemap = (Tilemap)GameObject.FindObjectOfType(typeof(Tilemap));
+        }
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, collisionLayers);
         checkWall = Physics2D.OverlapCircle(obstacleCheck.position, obstacleCheckRadius, collisionLayers);
         //Debug.Log ("isGrounded : "+isGrounded);
@@ -195,5 +199,12 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
         Gizmos.DrawWireSphere(obstacleCheck.position, obstacleCheckRadius);
+    }
+    
+    public void resetPosition(){
+        Vector2 originalPos;
+        originalPos.x = -8.95f;
+        originalPos.y = -2.485f;
+        this.gameObject.transform.position = originalPos;
     }
 }

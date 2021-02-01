@@ -775,7 +775,7 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
---- !u!1001 &1094173843
+--- !u!1001 &1721548894
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -788,11 +788,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7818214282200244592, guid: 68719fb66ecaf9c4ca71927bfc0728c4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.744075
+      value: -8.95
       objectReference: {fileID: 0}
     - target: {fileID: 7818214282200244592, guid: 68719fb66ecaf9c4ca71927bfc0728c4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.438009
+      value: -2.485
       objectReference: {fileID: 0}
     - target: {fileID: 7818214282200244592, guid: 68719fb66ecaf9c4ca71927bfc0728c4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -826,10 +826,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7818214282200244593, guid: 68719fb66ecaf9c4ca71927bfc0728c4, type: 3}
-      propertyPath: tilemap
-      value: 
-      objectReference: {fileID: 227952526}
     - target: {fileID: 7818214282200244594, guid: 68719fb66ecaf9c4ca71927bfc0728c4, type: 3}
       propertyPath: m_Name
       value: Player

@@ -8,7 +8,7 @@ public class PickUpObject : MonoBehaviour
 
     // Start is called before the first frame update
     void Start(){
-        ps = GameObject.Find ("Player").GetComponent<PlayerStats>();
+        ps = GameObject.Find("Player").GetComponent<PlayerStats>();
     }
 
     // Update is called once per frame
