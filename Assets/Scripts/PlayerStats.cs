@@ -7,7 +7,7 @@ using System;
 
 public class PlayerStats : MonoBehaviour
 {
-    public int nbCoins = 0;
+    public int nbCoins;
     public double totalTime;
     public DateTime startingTime;
     public DateTime endingTime;
@@ -19,7 +19,8 @@ public class PlayerStats : MonoBehaviour
     public int currentCategory;
     // Start is called before the first frame update
     void Start(){
-        
+        nbCoins = 0;
+        startingTime = DateTime.Now;
     }
 
     // Update is called once per frame
@@ -31,8 +32,13 @@ public class PlayerStats : MonoBehaviour
         nbCoins++;
     }
 
-    public void initTime(){
+    public void reinitStats(){
+        nbCoins = 0;
         startingTime = DateTime.Now;
+    }
+
+    public Tuple<int, double> getStats(){
+        return Tuple.Create(this.nbCoins, this.totalTime);
     }
 
     public void updateLevelEndingStats(){

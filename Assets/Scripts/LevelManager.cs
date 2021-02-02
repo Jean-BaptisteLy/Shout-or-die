@@ -11,11 +11,13 @@ public class LevelManager : MonoBehaviour
 
     private PlayerMovement pm;
     private LogWritter logWritter;
+    private PlayerStats playerStats;
     
     void Start(){
         currentLevel = 0;
         pm = gameObject.GetComponent<PlayerMovement>();
         logWritter = gameObject.GetComponent<LogWritter>();
+        playerStats = gameObject.GetComponent<PlayerStats>();
     }
 
     void Update(){
@@ -33,14 +35,17 @@ public class LevelManager : MonoBehaviour
             pm.resetPosition();
             logWritter.flushLevelLogger();
             logWritter.startNewLevelLogger(currentLevel);
+            playerStats.updateLevelEndingStats();
+            logWritter.writeDownStats();
+            playerStats.reinitStats();
         }
     }
 
     public void restartCurrentLevel(){
         Debug.Log("Restarting level");
-        // Destroy(gameObject);
         SceneManager.LoadScene("Level " + currentLevel);
         pm.resetPosition();
         logWritter.resetLogger(currentLevel);
+        playerStats.reinitStats();
     }
 }

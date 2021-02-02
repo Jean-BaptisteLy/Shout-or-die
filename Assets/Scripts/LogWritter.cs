@@ -14,32 +14,47 @@ public class LogWritter : MonoBehaviour{
     private DateTime startTime;
     private double totalTime;
     private IEnumerator coroutine;
+    private PlayerStats ps;
 
     private StreamWriter writer; // to uncomment
     // file containing loudness data of current level
-    private string filePath;
+    private string loudnessFile;
+    // file containing stats
+    private string statsFile;
+    private StreamWriter statsWriter;
     private int currentLevel;
 
     // Start is called before the first frame update
     void Start(){
-        Debug.Log("LogWritter started");
+        // Debug.Log("LogWritter started");
         currentLevel = 0;
         pm = gameObject.GetComponent<PlayerMovement>();
+        ps = gameObject.GetComponent<PlayerStats>();
         startNewLevelLogger(0);
+        // stats file
+        statsFile = getStatsPath();
+        if (!File.Exists(statsFile)){
+            statsWriter = new StreamWriter(statsFile);
+        }else{
+            File.Delete(statsFile);
+            statsWriter = new StreamWriter(statsFile);
+        }
+        statsWriter.WriteLine("level,ccollected,ctotal,time,optttime");
+        
     }
 
     public void startNewLevelLogger(int currentLevel){
-        Debug.Log("startNewleveLogger");
+        // Debug.Log("startNewleveLogger");
 
         // this function must be call at the beggining of each, and flush only to be called when changing the level
-        filePath = getPath(currentLevel);
+        loudnessFile = getLoudnessPath(currentLevel);
         this.currentLevel = currentLevel;
         startTime = DateTime.Now;
-        if (!File.Exists(filePath)){
-            writer = new StreamWriter(filePath); // to uncomment
+        if (!File.Exists(loudnessFile)){
+            writer = new StreamWriter(loudnessFile); // to uncomment
         }else{
-            File.Delete(filePath);
-            writer = new StreamWriter(filePath); // to uncomment
+            File.Delete(loudnessFile);
+            writer = new StreamWriter(loudnessFile); // to uncomment
         }
         writer.WriteLine("Time, Loudness"); // to uncomment
         // Write loudness info every 2 seconds
@@ -48,7 +63,7 @@ public class LogWritter : MonoBehaviour{
     }
 
     public void resetLogger(int currentLevel){
-        Debug.Log("ResetLogger");
+        // Debug.Log("ResetLogger");
         StopCoroutine(coroutine);
         // writer.Close();
         if (writer != null){
@@ -58,7 +73,7 @@ public class LogWritter : MonoBehaviour{
     }
 
     public void flushLevelLogger(){
-        Debug.Log("flushLevelLogger");
+        // Debug.Log("flushLevelLogger");
         if (writer != null){
             writer.Flush();
             StopCoroutine(coroutine);
@@ -74,11 +89,26 @@ public class LogWritter : MonoBehaviour{
             // loudnessValues.Add(pm.loudness.ToString()); // to uncomment maybe
             string line = totalTime + "," + pm.loudness.ToString();
             writer.WriteLine(line); // to uncomment
-        
 
             // writer.Flush(); // to uncomment maybe
             yield return new WaitForSeconds(2.0f);
         }
+    }
+
+    private string getLoudnessPath(int level){
+        string filename = "loudnessDataN" + level;
+        return Application.dataPath + "/../Data/" + filename + ".csv";
+    }
+
+    private string getStatsPath(){
+        string filename = "stats";
+        return Application.dataPath + "/../Data/" + filename + ".csv";
+    }
+
+    public void writeDownStats(){
+        Tuple<int, double> stats = ps.getStats();
+        statsWriter.WriteLine(stats.Item1 + "," + stats.Item2);
+        statsWriter.Flush();
     }
 
     void OnDestroy(){
@@ -86,10 +116,9 @@ public class LogWritter : MonoBehaviour{
             writer.Flush();
             writer.Close();
         }
-    }
-
-    private string getPath(int level){
-        string filename = "loudnessDataN" + level;
-        return Application.dataPath + "/../Data/" + filename + ".csv";
+        if (statsWriter != null){
+            statsWriter.Flush();
+            statsWriter.Close();
+        }
     }
 }
