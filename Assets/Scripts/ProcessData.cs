@@ -15,30 +15,28 @@ public class ProcessData : MonoBehaviour
     private List<float> timeRatioList;
 
     private int playerCategory;
+    private int lastPlayedLevel;
+
     void Start(){
-        filePath = getPath();   
-        // csvTable = new DataTable();  
-        // CsvRead csvReader = new CsvReader(new StreamReader(System.IO.File.OpenRead(filePath)), true);
-        // csvTable.Load(csvReader);
-        // Debug.Log("This is C#");
-        //words = System.IO.File.ReadAllText (filePath).Split(","[0]);
-        // string word;
-        // foreach (string word in words){
-        //     Debug.Log(word);
-        //     }
-        // for (int i = 0; i <= wordList.size-1; i++){
-        //     Debug.Log(wordList[i]);
-        //     }
-        StreamReader sr = new StreamReader(filePath);
-        string line = sr.ReadLine();
-        // Read and display lines from the file until the end of
-        // the file is reached.
-        while ((line = sr.ReadLine()) != null){
-            string[] lineValues= line.Split(',');
-            addRatios(lineValues);
-            // do something with this data
-            //Debug.Log((line));
-        }
+        lastPlayedLevel = 0;
+        
+        coinsRatioList = new List<float>();
+        timeRatioList = new List<float>();
+    }
+    public void addPlayerStats(int coinsCollected, int coinsTotal, float timePlayer, float timeOptimal){
+        // filePath = getPath();   
+        // StreamReader sr = new StreamReader(filePath);
+        // string line = sr.ReadLine();
+        // // Read and display lines from the file until the end of
+        // // the file is reached.
+        // while ((line = sr.ReadLine()) != null){
+        //     string[] lineValues= line.Split(',');
+        //     addRatios(lineValues);
+        //     // do something with this data
+        //     //Debug.Log((line));
+        // }
+        
+        // add ratios to their list, then updates the user category
 
 
     }
@@ -54,21 +52,17 @@ public class ProcessData : MonoBehaviour
         return Application.dataPath + "/../Data/test.csv";
     }
 
-    private void addRatios(string[] lineValues){
-        int level = Int32.Parse(lineValues[0]);
-        int coinsCollected = Int32.Parse(lineValues[1]);
-        int coinsTotal = Int32.Parse(lineValues[2]);
-        float timePlayer =  float.Parse(lineValues[3]);
-        float timeOptimal = float.Parse(lineValues[4]);
+    private void addRatios(int coinsCollected, int coinsTotal, float timePlayer, float timeOptimal){
+    // private void addRatios(string[] lineValues){
+        // int level = Int32.Parse(lineValues[0]);
+        // int coinsCollected = Int32.Parse(lineValues[1]);
+        // int coinsTotal = Int32.Parse(lineValues[2]);
+        // float timePlayer =  float.Parse(lineValues[3]);
+        // float timeOptimal = float.Parse(lineValues[4]);
 
         // Calculate ratios
         float levelCoinsRatio = coinsCollected/coinsTotal;
         float levelTimeRatio = timePlayer/timeOptimal;
-
-        if (level == 0){
-           coinsRatioList = new List<float>();
-           timeRatioList = new List<float>();
-        }
 
         // Add them to lists
         coinsRatioList.Add(levelCoinsRatio);

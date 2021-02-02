@@ -8,8 +8,14 @@ public class LevelManager : MonoBehaviour
 {
     public int currentLevel;
     public Rigidbody2D rb;
+
+    private PlayerMovement pm;
+    private LogWritter logWritter;
+    
     void Start(){
         currentLevel = 0;
+        pm = gameObject.GetComponent<PlayerMovement>();
+        logWritter = gameObject.GetComponent<LogWritter>();
     }
 
     void Update(){
@@ -24,8 +30,9 @@ public class LevelManager : MonoBehaviour
             Debug.Log("Change of level");
             currentLevel++;
             SceneManager.LoadScene("Level " + currentLevel);
-            PlayerMovement pm = gameObject.GetComponent<PlayerMovement>();
             pm.resetPosition();
+            logWritter.flushLevelLogger();
+            logWritter.startNewLevelLogger(currentLevel);
         }
     }
 
@@ -33,7 +40,7 @@ public class LevelManager : MonoBehaviour
         Debug.Log("Restarting level");
         // Destroy(gameObject);
         SceneManager.LoadScene("Level " + currentLevel);
-        PlayerMovement pm = gameObject.GetComponent<PlayerMovement>();
         pm.resetPosition();
+        logWritter.resetLogger(currentLevel);
     }
 }
