@@ -107,7 +107,7 @@ public class LogWritter : MonoBehaviour{
 
     public void writeDownStats(){
         Tuple<int, double> stats = ps.getStats();
-        statsWriter.WriteLine(stats.Item1 + "," + stats.Item2);
+        statsWriter.WriteLine(currentLevel + "," + stats.Item1 + "," + stats.Item2);
         statsWriter.Flush();
     }
 
@@ -117,7 +117,9 @@ public class LogWritter : MonoBehaviour{
             writer.Close();
         }
         if (statsWriter != null){
-            statsWriter.Flush();
+            ps.updateLevelEndingStats();
+            writeDownStats();
+            // statsWriter.Flush();
             statsWriter.Close();
         }
     }

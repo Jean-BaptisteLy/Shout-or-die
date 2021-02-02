@@ -34,9 +34,9 @@ public class LevelManager : MonoBehaviour
             SceneManager.LoadScene("Level " + currentLevel);
             pm.resetPosition();
             logWritter.flushLevelLogger();
-            logWritter.startNewLevelLogger(currentLevel);
             playerStats.updateLevelEndingStats();
             logWritter.writeDownStats();
+            logWritter.startNewLevelLogger(currentLevel);
             playerStats.reinitStats();
         }
     }
