@@ -50,7 +50,7 @@ public class PlayerStats : MonoBehaviour
         endingTime = DateTime.Now;
         totalTime = (endingTime - startingTime).TotalSeconds;
         // TO DO: extract this info (timeopt and totalcoins) automatically from level info once it has been generated
-        Debug.Log("updatelevelendinstats calling addplayerstats");
+        // Debug.Log("updatelevelendinstats calling addplayerstats");
         pd.addPlayerStats(nbCoins, coinsTotal, (float)totalTime, 1.0f);
         
     }

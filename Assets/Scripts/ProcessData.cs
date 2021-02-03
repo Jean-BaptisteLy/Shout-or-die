@@ -37,11 +37,13 @@ public class ProcessData : MonoBehaviour
         // }
         
         // add ratios to their list, then updates the user category
-        Debug.Log("addplayerstats");
+        // Debug.Log("addplayerstats");
         addRatios(coinsCollected, coinsTotal, timePlayer, timeOptimal);
         playerCategory = getUpdatedCategory();
-        Debug.Log("Level: " + lastPlayedLevel + ", Player Category: " + playerCategory);
+        // Debug.Log("afeter getUpdatedCategory middle statsplayer");
+        // Debug.Log("Level: " + lastPlayedLevel + ", Player Category: " + playerCategory);
         lastPlayedLevel++;
+        // Debug.Log("end of addplayerstats");
 
     }
     // Update is called once per frame
@@ -84,7 +86,7 @@ public class ProcessData : MonoBehaviour
             // 1: fast but bad
             // 2: slow but good
             // 3: fast and good
-
+        // Debug.Log("inside getUpdatedCat");
         // gamma for quality: importance of current score
         float gammaOne = 0.7f;
         // gamma for time: importance of current score
