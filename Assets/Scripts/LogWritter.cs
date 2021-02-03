@@ -117,10 +117,13 @@ public class LogWritter : MonoBehaviour{
             writer.Close();
         }
         if (statsWriter != null){
+            Debug.Log("update level ending stats bc OnDestroy :( ");
             ps.updateLevelEndingStats();
+            Debug.Log("after update level ending stats bc onDestroy");
             writeDownStats();
             // statsWriter.Flush();
             statsWriter.Close();
+            Debug.Log("statsWriter closed");
         }
     }
 }

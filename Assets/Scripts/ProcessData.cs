@@ -19,7 +19,7 @@ public class ProcessData : MonoBehaviour
 
     void Start(){
         lastPlayedLevel = 0;
-        
+
         coinsRatioList = new List<float>();
         timeRatioList = new List<float>();
     }
@@ -37,7 +37,11 @@ public class ProcessData : MonoBehaviour
         // }
         
         // add ratios to their list, then updates the user category
-
+        Debug.Log("addplayerstats");
+        addRatios(coinsCollected, coinsTotal, timePlayer, timeOptimal);
+        playerCategory = getUpdatedCategory();
+        Debug.Log("Level: " + lastPlayedLevel + ", Player Category: " + playerCategory);
+        lastPlayedLevel++;
 
     }
     // Update is called once per frame
@@ -62,7 +66,12 @@ public class ProcessData : MonoBehaviour
 
         // Calculate ratios
         float levelCoinsRatio = coinsCollected/coinsTotal;
-        float levelTimeRatio = timePlayer/timeOptimal;
+        float levelTimeRatio;
+        if (lastPlayedLevel == 0){
+            levelTimeRatio = 0.5f + (20.0f - timePlayer)/(2.0f*20.0f);
+        }else{
+            levelTimeRatio = timePlayer/timeOptimal;
+        }
 
         // Add them to lists
         coinsRatioList.Add(levelCoinsRatio);
@@ -70,20 +79,27 @@ public class ProcessData : MonoBehaviour
     }
 
     private int getUpdatedCategory(){
+            // Possible categories:
+            // 0: slow and bad 
+            // 1: fast but bad
+            // 2: slow but good
+            // 3: fast and good
+
         // gamma for quality: importance of current score
         float gammaOne = 0.7f;
         // gamma for time: importance of current score
         float gammaTwo = 0.7f;
 
         // to automatize
-        int lastPlayedLevel = 1;
         float fOne;
         float fTwo;
 
         if (lastPlayedLevel == 0){
             // do something else
             fOne = coinsRatioList[lastPlayedLevel];
+            // specific data-processing for level 0 because it is an initialization level
             fTwo = timeRatioList[lastPlayedLevel];
+            
         }else{
             fOne = gammaOne*coinsRatioList[lastPlayedLevel] + (1-gammaOne)*coinsRatioList[lastPlayedLevel-1];
             fTwo = gammaTwo*timeRatioList[lastPlayedLevel] + (1-gammaTwo)*timeRatioList[lastPlayedLevel-1];
