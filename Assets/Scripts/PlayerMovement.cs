@@ -132,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         if(!checkWall && !isGrounded) {
-            horizontalMovement = 10 * Time.deltaTime;
+            horizontalMovement = 100 * Time.deltaTime;
         }
         MovePlayer(horizontalMovement);
         /*
