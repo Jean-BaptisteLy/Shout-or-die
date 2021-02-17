@@ -7,7 +7,7 @@ using System;
 
 public class PlayerStats : MonoBehaviour
 {
-    public int nbCoins;
+    public int nbCoins = 0;
     public double totalTime;
     public DateTime startingTime;
     public DateTime endingTime;
@@ -24,7 +24,7 @@ public class PlayerStats : MonoBehaviour
     // Start is called before the first frame update
     void Start(){
         pd = gameObject.GetComponent<ProcessData>();
-        nbCoins = 0;
+        // nbCoins = 0;
         startingTime = DateTime.Now;
     }
 
