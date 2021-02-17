@@ -66,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {   
+        
         // to delete or reorganize
         if (tilemap == null){
             tilemap = (Tilemap)GameObject.FindObjectOfType(typeof(Tilemap));
@@ -115,15 +116,23 @@ public class PlayerMovement : MonoBehaviour
         	Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
         	//transform.position = tilemap.GetCellCenterWorld(cellPosition);
         	//Debug.Log(tilemap.GetCellCenterWorld(cellPosition));
-
-            horizontalMovement = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
+            if (!checkWall) { // rien devant
+                horizontalMovement = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
+            }
+            else {
+                horizontalMovement = 0.0f;
+            }
             if (Input.GetButtonDown("Jump") && isGrounded)
             {  	
                 //tilemap.SetTile(currentCell, tile);
+                //Debug.Log(transform.position.y);
                 jumpForce = jumpForceKeyboard;
                 isJumping = true;
                 test = 0;
             }
+        }
+        if(!checkWall && !isGrounded) {
+            horizontalMovement = 10 * Time.deltaTime;
         }
         MovePlayer(horizontalMovement);
         /*
