@@ -17,11 +17,16 @@ public class ProcessData : MonoBehaviour
     private int playerCategory;
     private int lastPlayedLevel;
 
+    private PlayerMovement pm;
+    private int totalJumps;
+
     void Start(){
         lastPlayedLevel = 0;
 
         coinsRatioList = new List<float>();
         timeRatioList = new List<float>();
+        pm = gameObject.GetComponent<PlayerMovement>();
+
     }
     public void addPlayerStats(int coinsCollected, int coinsTotal, float timePlayer, float timeOptimal){
         // filePath = getPath();   
@@ -38,6 +43,7 @@ public class ProcessData : MonoBehaviour
         
         // add ratios to their list, then updates the user category
         // Debug.Log("addplayerstats");
+        processDataCurve();
         addRatios(coinsCollected, coinsTotal, timePlayer, timeOptimal);
         playerCategory = getUpdatedCategory();
         // Debug.Log("afeter getUpdatedCategory middle statsplayer");
@@ -123,6 +129,23 @@ public class ProcessData : MonoBehaviour
 
         }
         return playerCategory;
+    }
+
+
+    private float processDataCurve(){
+        List<float> loudnessData = gameObject.GetComponent<LogWritter>().getLoudnessData();
+        float jumpThresh = pm.jumpLoudnessThreshold;
+        totalJumps = 0;
+        // Debug.Log("Total data lines: " + loudnessData.Count);
+        for (int i = 1; i < loudnessData.Count; i++){
+            // check if player jumped
+            if ((loudnessData[i-1] < jumpThresh) && (loudnessData[i] >= jumpThresh)){
+                // Debug.Log("Jumped at " + i);
+                totalJumps++;
+            }
+        }
+        // Debug.Log("Total jumps: " + totalJumps);
+        return 1.0f;
     }
 
 }

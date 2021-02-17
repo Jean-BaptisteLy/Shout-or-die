@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class LogWritter : MonoBehaviour{
 
     public List<string> timeValues = new List<string>();
-    public List<string> loudnessValues = new List<string>();
+    public List<float> loudnessValues = new List<float>();
 
     private PlayerMovement pm;
     private DateTime startTime;
@@ -23,6 +23,7 @@ public class LogWritter : MonoBehaviour{
     private string statsFile;
     private StreamWriter statsWriter;
     private int currentLevel;
+    public float nbSeconds = 1.0f;
 
     // Start is called before the first frame update
     void Start(){
@@ -49,6 +50,7 @@ public class LogWritter : MonoBehaviour{
         // this function must be call at the beggining of each, and flush only to be called when changing the level
         loudnessFile = getLoudnessPath(currentLevel);
         this.currentLevel = currentLevel;
+        loudnessValues = new List<float>();
         startTime = DateTime.Now;
         if (!File.Exists(loudnessFile)){
             writer = new StreamWriter(loudnessFile); // to uncomment
@@ -86,12 +88,13 @@ public class LogWritter : MonoBehaviour{
         while(true){
             totalTime = (DateTime.Now - startTime).TotalSeconds;
             // timeValues.Add(totalTime.ToString()); // to uncomment maybe
-            // loudnessValues.Add(pm.loudness.ToString()); // to uncomment maybe
-            string line = totalTime + "," + pm.loudness.ToString();
+            float loudness = pm.loudness;
+            loudnessValues.Add(loudness); // to uncomment maybe
+            string line = totalTime + "," + loudness.ToString();
             writer.WriteLine(line); // to uncomment
 
             // writer.Flush(); // to uncomment maybe
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(nbSeconds);
         }
     }
 
@@ -109,6 +112,10 @@ public class LogWritter : MonoBehaviour{
         Tuple<int, double> stats = ps.getStats();
         statsWriter.WriteLine(currentLevel + "," + stats.Item1 + "," + stats.Item2);
         statsWriter.Flush();
+    }
+
+    public List<float> getLoudnessData(){
+        return loudnessValues;
     }
 
     void OnDestroy(){
