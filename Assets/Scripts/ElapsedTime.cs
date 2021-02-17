@@ -17,6 +17,9 @@ public class ElapsedTime : MonoBehaviour
     void Update(){
         elapsedTime += Time.deltaTime;
         text.text = "Elapsed time: " + Mathf.Round(elapsedTime);
-        
+    }
+
+    public void restartElapsedTime(){
+        elapsedTime = 0f;
     }
 }
