@@ -203,8 +203,8 @@ public class PlayerMovement : MonoBehaviour
     
     public void resetPosition(){
         Vector2 originalPos;
-        originalPos.x = -8.95f;
-        originalPos.y = -2.485f;
+        originalPos.x = 0f;
+        originalPos.y = 0f;
         this.gameObject.transform.position = originalPos;
     }
 }
