@@ -12,12 +12,17 @@ public class LevelManager : MonoBehaviour
     private PlayerMovement pm;
     private LogWritter logWritter;
     private PlayerStats playerStats;
+    private TMPro.TextMeshProUGUI text;
+    private ElapsedTime elapsedTime;
+    // private GameObject canvas;
     
     void Start(){
         currentLevel = 0;
         pm = gameObject.GetComponent<PlayerMovement>();
         logWritter = gameObject.GetComponent<LogWritter>();
         playerStats = gameObject.GetComponent<PlayerStats>();
+        TMPro.TextMeshProUGUI text = GameObject.Find("Canvas").GetComponentInChildren<TMPro.TextMeshProUGUI>();
+        elapsedTime = text.GetComponent<ElapsedTime>();
     }
 
     void Update(){
@@ -47,5 +52,7 @@ public class LevelManager : MonoBehaviour
         pm.resetPosition();
         logWritter.resetLogger(currentLevel);
         playerStats.reinitStats();
+        // ElapsedTime.restartElapsedTime();
+        elapsedTime.restartElapsedTime();
     }
 }
