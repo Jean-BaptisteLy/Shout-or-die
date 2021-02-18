@@ -16,7 +16,7 @@ public class LogWritter : MonoBehaviour{
     private IEnumerator coroutine;
     private PlayerStats ps;
 
-    private StreamWriter writer; // to uncomment
+    private StreamWriter writer;
     // file containing loudness data of current level
     private string loudnessFile;
     // file containing stats
@@ -53,13 +53,13 @@ public class LogWritter : MonoBehaviour{
         loudnessValues = new List<float>();
         startTime = DateTime.Now;
         if (!File.Exists(loudnessFile)){
-            writer = new StreamWriter(loudnessFile); // to uncomment
+            writer = new StreamWriter(loudnessFile);
         }else{
             File.Delete(loudnessFile);
-            writer = new StreamWriter(loudnessFile); // to uncomment
+            writer = new StreamWriter(loudnessFile);
         }
-        writer.WriteLine("Time, Loudness"); // to uncomment
-        // Write loudness info every 2 seconds
+        writer.WriteLine("Time, Loudness");
+        // Write loudness info every nbSeconds
         coroutine = WaitAndWrite();
         StartCoroutine(coroutine);
     }
@@ -89,9 +89,9 @@ public class LogWritter : MonoBehaviour{
             totalTime = (DateTime.Now - startTime).TotalSeconds;
             // timeValues.Add(totalTime.ToString()); // to uncomment maybe
             float loudness = pm.loudness;
-            loudnessValues.Add(loudness); // to uncomment maybe
+            loudnessValues.Add(loudness);
             string line = totalTime + "," + loudness.ToString();
-            writer.WriteLine(line); // to uncomment
+            writer.WriteLine(line);
 
             // writer.Flush(); // to uncomment maybe
             yield return new WaitForSeconds(nbSeconds);
