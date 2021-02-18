@@ -8,8 +8,7 @@ public class Player : MonoBehaviour {
     public static Player Instance { get { return _instance; } }
 
 
-    private void Awake()
-    {
+    private void Awake(){
         if (_instance != null && _instance != this)
         {
             Destroy(this.gameObject);
