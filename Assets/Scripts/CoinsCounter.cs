@@ -21,6 +21,8 @@ public class CoinsCounter : MonoBehaviour
     // Update is called once per frame
     void Update(){
         collectedCoins = playerStats.nbCoins;
+        totalCoins = playerStats.coinsTotal;
+        // Debug.Log("Coins counter, total coins: " + totalCoins);
         text.text = "Coins: " + collectedCoins + "/" + totalCoins;
     }
 
