@@ -37,8 +37,6 @@ public class ProcessData : MonoBehaviour
         // while ((line = sr.ReadLine()) != null){
         //     string[] lineValues= line.Split(',');
         //     addRatios(lineValues);
-        //     // do something with this data
-        //     //Debug.Log((line));
         // }
         
         // add ratios to their list, then updates the user category
@@ -48,7 +46,7 @@ public class ProcessData : MonoBehaviour
         playerCategory = getUpdatedCategory();
         // Debug.Log("afeter getUpdatedCategory middle statsplayer");
         // Debug.Log("Level: " + lastPlayedLevel + ", Player Category: " + playerCategory);
-        lastPlayedLevel++;
+        // lastPlayedLevel++;
         // Debug.Log("end of addplayerstats");
 
     }
@@ -146,6 +144,10 @@ public class ProcessData : MonoBehaviour
         }
         // Debug.Log("Total jumps: " + totalJumps);
         return 1.0f;
+    }
+
+    public void upgradelastPlayedLevelNumber(){
+        lastPlayedLevel++;
     }
 
 }

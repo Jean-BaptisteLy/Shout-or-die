@@ -28,11 +28,11 @@ public class PlayerStats : MonoBehaviour
         pd = gameObject.GetComponent<ProcessData>();
         // nbCoins = 0;
         startingTime = DateTime.Now;
+        // Initialize dictionary of level information
         levelInfo.Add("Level0", Tuple.Create(6, 80.0f));
-        // foreach (string key in levelInfo.Keys) {  
-        //     Debug.Log("Key: " + key);  
-        // }  
-        // Debug.Log("in practice: " + "Level" + currentLevel);
+        levelInfo.Add("Level1", Tuple.Create(7, 80.0f));
+        levelInfo.Add("Level2", Tuple.Create(4, 80.0f));
+        levelInfo.Add("Level3", Tuple.Create(5, 80.0f));
         coinsTotal = levelInfo["Level" + currentLevel].Item1;
         timeOptimal = levelInfo["Level" + currentLevel].Item2;
         // Tuple.Create(this.nbCoins, this.totalTime)
@@ -66,10 +66,14 @@ public class PlayerStats : MonoBehaviour
         if (currentLevel != 0){
             Debug.Log("Current level: " + currentLevel);
             // TODO: check if it works
-            coinsTotal = levelInfo["Level" + currentLevel + "." + currentCategory].Item1;
-            timeOptimal = levelInfo["Level" + currentLevel + "." + currentCategory].Item2;
+            coinsTotal = levelInfo["Level" + currentLevel].Item1;
+            timeOptimal = levelInfo["Level" + currentLevel].Item2;
+            // replace by thing here below later
+            // coinsTotal = levelInfo["Level" + currentLevel + "." + currentCategory].Item1;
+            // timeOptimal = levelInfo["Level" + currentLevel + "." + currentCategory].Item2;
         }
         pd.addPlayerStats(nbCoins, coinsTotal, (float)totalTime, (float)timeOptimal);
+        pd.upgradelastPlayedLevelNumber();
         
     }
 
