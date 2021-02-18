@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
 
     // Tests
     public float test = 0;
+    //public Transform prefab;
 
     void Start()
     {
@@ -128,6 +129,7 @@ public class PlayerMovement : MonoBehaviour
             {  	
                 //tilemap.SetTile(currentCell, tile);
                 //Debug.Log(transform.position.y);
+                //Instantiate(prefab, new Vector3(currentCell.x, currentCell.y, 0), Quaternion.identity);
                 jumpForce = jumpForceKeyboard;
                 isJumping = true;
                 test = 0;

@@ -12,9 +12,9 @@ public class ProcessData : MonoBehaviour
     //private DataTable csvTable;
     private string[] words;
     private List<float> coinsRatioList;
-    private List<float> timeRatioList;
+    public List<float> timeRatioList;
 
-    private int playerCategory;
+    public int playerCategory;
     private int lastPlayedLevel;
 
     private PlayerMovement pm;

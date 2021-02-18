@@ -1843,6 +1843,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7818214282200244593, guid: 68719fb66ecaf9c4ca71927bfc0728c4, type: 3}
+      propertyPath: prefab
+      value: 
+      objectReference: {fileID: 7491327947209781550, guid: 7db1ee80f1cbca14f9b2e32f01faf210, type: 3}
+    - target: {fileID: 7818214282200244593, guid: 68719fb66ecaf9c4ca71927bfc0728c4, type: 3}
       propertyPath: tilemap
       value: 
       objectReference: {fileID: 227952526}
