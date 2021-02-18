@@ -14,7 +14,6 @@ public class LevelManager : MonoBehaviour
     private PlayerStats playerStats;
     private TMPro.TextMeshProUGUI text;
     private ElapsedTime elapsedTime;
-    // private GameObject canvas;
     
     void Start(){
         currentLevel = 0;
@@ -40,6 +39,7 @@ public class LevelManager : MonoBehaviour
             pm.resetPosition();
             logWritter.flushLevelLogger();
             playerStats.updateLevelEndingStats();
+            playerStats.upgradeLevelNumber();
             logWritter.writeDownStats();
             logWritter.startNewLevelLogger(currentLevel);
             playerStats.reinitStats();
@@ -52,7 +52,6 @@ public class LevelManager : MonoBehaviour
         pm.resetPosition();
         logWritter.resetLogger(currentLevel);
         playerStats.reinitStats();
-        // ElapsedTime.restartElapsedTime();
         elapsedTime.restartElapsedTime();
     }
 }

@@ -19,13 +19,23 @@ public class PlayerStats : MonoBehaviour
     public int currentCategory;
     private ProcessData pd;
     // level-associated data
-    public int coinsTotal = 2;
-    public float timeOptimal = 20.0f;
+    public Dictionary<string,Tuple<int, float>> levelInfo = new Dictionary<string,Tuple<int, float>>();
+    public int coinsTotal;
+    public float timeOptimal;
+    public int currentLevel = 0;
     // Start is called before the first frame update
     void Start(){
         pd = gameObject.GetComponent<ProcessData>();
         // nbCoins = 0;
         startingTime = DateTime.Now;
+        levelInfo.Add("Level0", Tuple.Create(6, 80.0f));
+        // foreach (string key in levelInfo.Keys) {  
+        //     Debug.Log("Key: " + key);  
+        // }  
+        // Debug.Log("in practice: " + "Level" + currentLevel);
+        coinsTotal = levelInfo["Level" + currentLevel].Item1;
+        timeOptimal = levelInfo["Level" + currentLevel].Item2;
+        // Tuple.Create(this.nbCoins, this.totalTime)
     }
 
     // Update is called once per frame
@@ -49,10 +59,22 @@ public class PlayerStats : MonoBehaviour
     public void updateLevelEndingStats(){
         endingTime = DateTime.Now;
         totalTime = (endingTime - startingTime).TotalSeconds;
+        // Debug.Log("Inside update level ending stats");
         // TO DO: extract this info (timeopt and totalcoins) automatically from level info once it has been generated
         // Debug.Log("updatelevelendinstats calling addplayerstats");
-        pd.addPlayerStats(nbCoins, coinsTotal, (float)totalTime, 1.0f);
+        // no player category for the very first level (initialization level)
+        if (currentLevel != 0){
+            Debug.Log("Current level: " + currentLevel);
+            // TODO: check if it works
+            coinsTotal = levelInfo["Level" + currentLevel + "." + currentCategory].Item1;
+            timeOptimal = levelInfo["Level" + currentLevel + "." + currentCategory].Item2;
+        }
+        pd.addPlayerStats(nbCoins, coinsTotal, (float)totalTime, (float)timeOptimal);
         
+    }
+
+    public void upgradeLevelNumber(){
+        currentLevel++;
     }
 
 
