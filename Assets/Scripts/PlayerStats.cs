@@ -50,6 +50,9 @@ public class PlayerStats : MonoBehaviour
     public void reinitStats(){
         nbCoins = 0;
         startingTime = DateTime.Now;
+        coinsTotal = levelInfo["Level" + currentLevel].Item1;
+        // Debug.Log("coinsTotal: " + coinsTotal);
+        timeOptimal = levelInfo["Level" + currentLevel].Item2;
     }
 
     public Tuple<int, double> getStats(){
@@ -63,15 +66,15 @@ public class PlayerStats : MonoBehaviour
         // TO DO: extract this info (timeopt and totalcoins) automatically from level info once it has been generated
         // Debug.Log("updatelevelendinstats calling addplayerstats");
         // no player category for the very first level (initialization level)
-        if (currentLevel != 0){
-            Debug.Log("Current level: " + currentLevel);
-            // TODO: check if it works
-            coinsTotal = levelInfo["Level" + currentLevel].Item1;
-            timeOptimal = levelInfo["Level" + currentLevel].Item2;
-            // replace by thing here below later
-            // coinsTotal = levelInfo["Level" + currentLevel + "." + currentCategory].Item1;
-            // timeOptimal = levelInfo["Level" + currentLevel + "." + currentCategory].Item2;
-        }
+        // if (currentLevel != 0){
+        //     Debug.Log("Current level: " + currentLevel);
+        //     // TODO: check if it works
+        //     coinsTotal = levelInfo["Level" + currentLevel].Item1;
+        //     timeOptimal = levelInfo["Level" + currentLevel].Item2;
+        //     // replace by thing here below later
+        //     // coinsTotal = levelInfo["Level" + currentLevel + "." + currentCategory].Item1;
+        //     // timeOptimal = levelInfo["Level" + currentLevel + "." + currentCategory].Item2;
+        // }
         pd.addPlayerStats(nbCoins, coinsTotal, (float)totalTime, (float)timeOptimal);
         pd.upgradelastPlayedLevelNumber();
         

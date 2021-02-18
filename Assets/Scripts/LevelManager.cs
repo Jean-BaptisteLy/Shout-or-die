@@ -13,7 +13,7 @@ public class LevelManager : MonoBehaviour
     private LogWritter logWritter;
     private PlayerStats playerStats;
     private TMPro.TextMeshProUGUI text;
-    private ElapsedTime elapsedTime;
+    private Timer timer;
     
     void Start(){
         currentLevel = 0;
@@ -21,7 +21,7 @@ public class LevelManager : MonoBehaviour
         logWritter = gameObject.GetComponent<LogWritter>();
         playerStats = gameObject.GetComponent<PlayerStats>();
         TMPro.TextMeshProUGUI text = GameObject.Find("Canvas").GetComponentInChildren<TMPro.TextMeshProUGUI>();
-        elapsedTime = text.GetComponent<ElapsedTime>();
+        timer = text.GetComponent<Timer>();
     }
 
     void Update(){
@@ -33,16 +33,7 @@ public class LevelManager : MonoBehaviour
     // Changing of level
     void OnCollisionEnter2D(Collision2D col){
     	if (col.collider.tag == "end"){
-            Debug.Log("Change of level");
-            currentLevel++;
-            SceneManager.LoadScene("Level " + currentLevel);
-            pm.resetPosition();
-            logWritter.flushLevelLogger();
-            playerStats.updateLevelEndingStats();
-            playerStats.upgradeLevelNumber();
-            logWritter.writeDownStats();
-            logWritter.startNewLevelLogger(currentLevel);
-            playerStats.reinitStats();
+            changeOfLevel();
         }
     }
 
@@ -52,6 +43,19 @@ public class LevelManager : MonoBehaviour
         pm.resetPosition();
         logWritter.resetLogger(currentLevel);
         playerStats.reinitStats();
-        elapsedTime.restartElapsedTime();
+        timer.restartTimer();
+    }
+    public void changeOfLevel(){
+        Debug.Log("Change of level");
+        currentLevel++;
+        SceneManager.LoadScene("Level " + currentLevel);
+        pm.resetPosition();
+        logWritter.flushLevelLogger();
+        playerStats.updateLevelEndingStats();
+        playerStats.upgradeLevelNumber();
+        logWritter.writeDownStats();
+        logWritter.startNewLevelLogger(currentLevel);
+        playerStats.reinitStats();
+        timer.restartTimer();
     }
 }
