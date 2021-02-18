@@ -6,9 +6,9 @@ using UnityEngine.Tilemaps;
 public class PlayerMovement : MonoBehaviour
 {
     // Base qui permet de se déplacer au clavier
-    public float moveSpeed = 2000;
-    public float jumpForceKeyboard = 300.0f; // 300 max
-    public float jumpForce = 100.0f;
+    public float moveSpeed = 200.0f;
+    private float jumpForceKeyboard = 300.0f; // 300 max
+    private float jumpForce = 0.0f;
     //public float jumpForce = 300.0f;
     public bool isJumping = false;
     public bool isGrounded;
@@ -24,11 +24,12 @@ public class PlayerMovement : MonoBehaviour
     public bool checkWall;
     public Transform obstacleCheck;
     public float obstacleCheckRadius;
+    private float jumpHorizontal = 5.0f;
 
     // Microphone
-    public float jumpForceMicrophone = 300.0f; // 50 max
-    public float sensitivity = 100f;
-    public float loudness = 0f;
+    public float jumpForceMicrophone = 100.0f; // 50 max
+    private float sensitivity = 100.0f;
+    public float loudness = 0.0f;
     public float jumpLoudnessThreshold;
     public float runLoudnessThreshold;
     AudioSource _audio;
@@ -83,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Saut
         if (loudness >= jumpLoudnessThreshold && isGrounded) {
-            //Debug.Log("---------- Je saute ! ----------");
+            Debug.Log("---------- Je saute ! ----------");
             //Debug.Log ("loudness : "+loudness);
             //Debug.Log ("jumpLoudnessThreshold : "+jumpLoudnessThreshold);
             //rb.AddForce( Vector3.up * jumpForce);
@@ -96,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else { // y'a un mur
                 horizontalMovement = 0.0f;
-                jumpForce = 100.0f;
+                //jumpForce = 100.0f;
                 test = 2;
             }
         }
@@ -105,10 +106,10 @@ public class PlayerMovement : MonoBehaviour
             horizontalMovement = moveSpeed * Time.deltaTime;
         }
         // Déplacement au clavier
-        else {
+        else if (Input.GetAxis("Horizontal") > 0 || Input.GetButtonDown("Jump")){
             Vector3Int currentCell = tilemap.WorldToCell(transform.position);
             currentCell.x += 1;
-            //Debug.Log("---------- Clavier ! ----------");
+            Debug.Log("---------- Clavier ! ----------");
             //Debug.Log(tilemap.GetTile(currentCell));
 
             // https://docs.unity3d.com/ScriptReference/Tilemaps.Tilemap.GetCellCenterWorld.html
@@ -118,6 +119,7 @@ public class PlayerMovement : MonoBehaviour
         	//Debug.Log(tilemap.GetCellCenterWorld(cellPosition));
             if (!checkWall) { // rien devant
                 horizontalMovement = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
+                //lastCheckWall = false;
             }
             else {
                 horizontalMovement = 0.0f;
@@ -129,11 +131,24 @@ public class PlayerMovement : MonoBehaviour
                 jumpForce = jumpForceKeyboard;
                 isJumping = true;
                 test = 0;
+                Debug.Log("Je saute !");
             }
+            //if(!checkWall && !isGrounded && isJumping && lastCheckWall) {
+           
         }
-        if(!checkWall && !isGrounded) {
-            horizontalMovement = 100 * Time.deltaTime;
+        else {
+        	Debug.Log("Dernier else.");
+        	
+        	if(!checkWall && !isGrounded) {	
+            	horizontalMovement = jumpHorizontal * Time.deltaTime;
+            	Debug.Log("Yes !");
+            	//Debug.Log(isGrounded);
+        	}
+        	else {
+        		horizontalMovement = 0.0f;
+        	}
         }
+        
         MovePlayer(horizontalMovement);
         /*
         horizontalMovement = Input.GetAxis("Horizontal") * moveSpeed * Time.deltaTime;
@@ -180,7 +195,7 @@ public class PlayerMovement : MonoBehaviour
         if (isJumping == true)
         {   
             // to uncomment
-            // Debug.Log("test : "+test+" jumpForce : "+jumpForce);
+            Debug.Log("test : "+test+" jumpForce : "+jumpForce);
             // Debug.Log("jumpForceKeyboard : "+jumpForceKeyboard);
             // Debug.Log("jumpForceMicrophone : "+jumpForceMicrophone);
             // Debug.Log("test : "+test+" jumpForce : "+jumpForce);

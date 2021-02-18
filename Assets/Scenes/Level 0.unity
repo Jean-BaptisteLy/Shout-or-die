@@ -2132,6 +2132,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1732166848, guid: 68719fb66ecaf9c4ca71927bfc0728c4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 7818214282200244592, guid: 68719fb66ecaf9c4ca71927bfc0728c4, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -2142,7 +2146,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7818214282200244592, guid: 68719fb66ecaf9c4ca71927bfc0728c4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7818214282200244592, guid: 68719fb66ecaf9c4ca71927bfc0728c4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2180,6 +2184,26 @@ PrefabInstance:
       propertyPath: tilemap
       value: 
       objectReference: {fileID: 227952526}
+    - target: {fileID: 7818214282200244593, guid: 68719fb66ecaf9c4ca71927bfc0728c4, type: 3}
+      propertyPath: moveSpeed
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 7818214282200244593, guid: 68719fb66ecaf9c4ca71927bfc0728c4, type: 3}
+      propertyPath: isGrounded
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7818214282200244593, guid: 68719fb66ecaf9c4ca71927bfc0728c4, type: 3}
+      propertyPath: jumpForceMicrophone
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 7818214282200244593, guid: 68719fb66ecaf9c4ca71927bfc0728c4, type: 3}
+      propertyPath: runLoudnessThreshold
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7818214282200244593, guid: 68719fb66ecaf9c4ca71927bfc0728c4, type: 3}
+      propertyPath: jumpLoudnessThreshold
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7818214282200244594, guid: 68719fb66ecaf9c4ca71927bfc0728c4, type: 3}
       propertyPath: m_Name
       value: Player
