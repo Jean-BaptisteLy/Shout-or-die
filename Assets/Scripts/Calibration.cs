@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
 public class Calibration : MonoBehaviour
 {
     private TMPro.TextMeshProUGUI text;
-    private List<float> valuesForMoveThreshold;
-    private List<float> valuesForJumpThreshold;
-    private float secondsLeft;
+    public List<float> valuesForMoveThreshold;
+    public List<float> valuesForJumpThreshold;
     private IEnumerator coroutine;
     private DateTime startingTime;
     private float totalSeconds = 5f;
@@ -21,7 +22,6 @@ public class Calibration : MonoBehaviour
     // Start is called before the first frame update
     void Start(){
         text = GameObject.Find("Canvas").GetComponentInChildren<TMPro.TextMeshProUGUI>();
-        secondsLeft = 5;
         coroutine = SaveLoudnessValues();
         valuesForMoveThreshold = new List<float>();
         valuesForJumpThreshold = new List<float>();
@@ -32,11 +32,22 @@ public class Calibration : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return)){
             calibrate();
         }
-        if ((totalSeconds - (DateTime.Now - startingTime).TotalSeconds <= 0f) && (startingTime != null)){
+        if ((totalSeconds - (DateTime.Now - startingTime).TotalSeconds <= 0f) && (valuesForMoveThreshold.Count == 10)){
             moveThreshReady = true;
             StopCoroutine(coroutine);
             Debug.Log(getMoveThresh());
             text.text = "Now a little bit louder...\n\n Press Enter when you are ready";
+        }
+        if ((totalSeconds - (DateTime.Now - startingTime).TotalSeconds <= 0f) && (valuesForJumpThreshold.Count == 10)){
+            StopCoroutine(coroutine);
+            Debug.Log(getJumpThresh());
+            text.text = "Let's play!";
+            coroutine = WaitForTwoSeconds();
+            StartCoroutine(coroutine);
+            // TODO: initialize player thresholds here
+            // change of scene
+            SceneManager.LoadScene("Level 0");
+            gameObject.SetActive(false);
         }
     }
 
@@ -45,9 +56,8 @@ public class Calibration : MonoBehaviour
         if (!moveThreshReady){
             text.text = "Generate sound with your average voice volume...\n"; 
         }
-        // Debug.Log("SecondsLeft: " + (totalSeconds - (DateTime.Now - startingTime).TotalSeconds) + "and" + secondsLeft*10);
         StartCoroutine(coroutine);
-        // now a little bit louder
+
     }
 
     private IEnumerator SaveLoudnessValues(){
@@ -64,6 +74,10 @@ public class Calibration : MonoBehaviour
         }
     }
 
+    IEnumerator WaitForTwoSeconds(){
+        yield return new WaitForSeconds(2);
+    }
+
     public float getMoveThresh(){
         moveThresh = 0;
         for (int i = 0; i < valuesForMoveThreshold.Count; i++){
@@ -75,7 +89,13 @@ public class Calibration : MonoBehaviour
     }
 
     public float getJumpThresh(){
-        return 2.0f;
+        jumpThresh = 0;
+        for (int i = 0; i < valuesForJumpThreshold.Count; i++){
+            jumpThresh += valuesForJumpThreshold[i];
+            Debug.Log("jumpThreshvalue = " + valuesForJumpThreshold[i]);
+        }
+        Debug.Log("jumpThresh = " + jumpThresh);
+        return jumpThresh/valuesForJumpThreshold.Count;
     }
 
 
