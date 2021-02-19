@@ -35,6 +35,7 @@ public class Timer : MonoBehaviour
 
     public void restartTimer(){
         elapsedTime = 0f;
-        timeLeft = ps.timeOptimal;
+        //timeLeft = ps.timeOptimal;
+        
     }
 }
