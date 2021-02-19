@@ -37,7 +37,7 @@ public class MenuPause : MonoBehaviour
     	//if (timer.elapsedTime == 5.0f) { // Test, to delete
     		timeIsUp = !timeIsUp;
     	}
-    	if(isPaused)
+    	if(isPaused || timeIsUp)
         	Time.timeScale = 0f;
     	else
         	Time.timeScale = 1f;
