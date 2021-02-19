@@ -50,7 +50,7 @@ public class PlayerStats : MonoBehaviour
     public void addCoin(){
         nbCoins++;
         // coin that adds time if player is mauvais mais rapide
-        if (currentCategory == 1){
+        if (currentCategory == 1 or currentCategory == 3){
             timer.timeLeft += 5f;
         }
     }
