@@ -8,6 +8,7 @@ public class Timer : MonoBehaviour
     private TMPro.TextMeshProUGUI text;
     public float elapsedTime = 0f;
     public float timeLeft;
+    public float timeStay;
     private PlayerStats ps;
     private ProcessData pd;
     // Start is called before the first frame update
@@ -17,19 +18,22 @@ public class Timer : MonoBehaviour
         //pd = gameObject.GetComponent<ProcessData>();
         pd = GameObject.Find("Player").GetComponent<ProcessData>();
         timeLeft = ps.timeOptimal;
+        timeStay = ps.timeOptimal;
     }
 
     // Update is called once per frame
     void Update(){
         elapsedTime += Time.deltaTime;
         timeLeft -= Time.deltaTime;
+        timeStay -= Time.deltaTime;
         if (ps.currentLevel == 0){
             text.text = "Elapsed time: " + Mathf.Round(elapsedTime);
         }else{
             // slow and bad
             if(pd.playerCategory != 0) {
-                Debug.Log("Timer.cs : playerCategory = 0");
+                //Debug.Log("Timer.cs : playerCategory = 0");
                 text.text = "Time left: " + Mathf.Round(timeLeft);
+                text.text = "Time stay: " + Mathf.Round(timeStay);
             }else{
                 text.text = "Elapsed time: " + Mathf.Round(elapsedTime);
             }
@@ -37,8 +41,27 @@ public class Timer : MonoBehaviour
     }
 
     public void restartTimer(){
-        elapsedTime = 0f;
+        elapsedTime = 0.0f;
         //timeLeft = ps.timeOptimal;
-        
+        if (pd.playerCategory == 0) {
+            timeLeft = 9999; // infini
+        }
+        else if (pd.playerCategory == 1) {
+            // time stay
+            timeStay = (ps.timeOptimal / 10) / pd.timeRatioList[pd.timeRatioList.Count - 1];
+        }
+        else if (pd.playerCategory == 2) {
+            // time initial
+            timeLeft = (ps.timeOptimal / 10) / pd.timeRatioList[pd.timeRatioList.Count - 1];
+        }
+        else if (pd.playerCategory == 3) {
+            // time stay
+            timeStay = (ps.timeOptimal / 10) / pd.timeRatioList[pd.timeRatioList.Count - 1];
+            // time initial
+            timeLeft = (ps.timeOptimal / 10) / pd.timeRatioList[pd.timeRatioList.Count - 1];
+        }
+        else {
+            Debug.Log("Problème Timer.cs... Impossible.");
+        }
     }
 }
