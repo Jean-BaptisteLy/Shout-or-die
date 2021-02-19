@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour
     public Rigidbody2D rb;
 
     private PlayerMovement pm;
+    private ProcessData pd;
     private LogWritter logWritter;
     private PlayerStats playerStats;
     private TMPro.TextMeshProUGUI text;
@@ -18,6 +19,7 @@ public class LevelManager : MonoBehaviour
     void Start(){
         currentLevel = 0;
         pm = gameObject.GetComponent<PlayerMovement>();
+        pd = gameObject.GetComponent<ProcessData>();
         logWritter = gameObject.GetComponent<LogWritter>();
         playerStats = gameObject.GetComponent<PlayerStats>();
         TMPro.TextMeshProUGUI text = GameObject.Find("Canvas").GetComponentInChildren<TMPro.TextMeshProUGUI>();
@@ -66,5 +68,16 @@ public class LevelManager : MonoBehaviour
         logWritter.startNewLevelLogger(currentLevel);
         playerStats.reinitStats();
         timer.restartTimer();
+        removeAllCoins();
+    }
+    public void removeAllCoins() {
+        if (pd.playerCategory == 0) {
+            foreach (GameObject obj in Object.FindObjectsOfType(typeof(GameObject)))
+            {
+                if (obj.tag == "coin") {
+                    Destroy(obj);
+                }
+            }
+        }
     }
 }
