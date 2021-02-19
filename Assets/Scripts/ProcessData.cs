@@ -113,15 +113,19 @@ public class ProcessData : MonoBehaviour
 
         if (fOne >= 0.5){
             if (fTwo >= 0.5){
+                // Bon et rapide
                 playerCategory = 3;
             }
             else{
+                // Bon mais lent
                 playerCategory = 2;
             }
         }else{
+            // Mauvais mais rapide
             if(fTwo >= 0.5){
                 playerCategory = 1;
             }else{
+                // Mauvais et lent
                 playerCategory = 0;
             }
 

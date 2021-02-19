@@ -9,10 +9,12 @@ public class Timer : MonoBehaviour
     public float elapsedTime = 0f;
     public float timeLeft;
     private PlayerStats ps;
+    private ProcessData pd;
     // Start is called before the first frame update
     void Start(){
         text = GetComponent<TMPro.TextMeshProUGUI>();
         ps = GameObject.Find("Player").GetComponent<PlayerStats>();
+        pd = gameObject.GetComponent<ProcessData>();
         timeLeft = ps.timeOptimal;
     }
 
@@ -23,7 +25,10 @@ public class Timer : MonoBehaviour
         if (ps.currentLevel == 0){
             text.text = "Elapsed time: " + Mathf.Round(elapsedTime);
         }else{
-            text.text = "Time left: " + Mathf.Round(timeLeft);
+            if(pd.playerCategory == 0) {
+                Debug.Log("Timer.cs : playerCategory = 0");
+                text.text = "Time left: " + Mathf.Round(timeLeft);
+            }
         }
     }
 
