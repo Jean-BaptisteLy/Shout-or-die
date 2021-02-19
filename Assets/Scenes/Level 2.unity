@@ -1729,7 +1729,7 @@ PrefabInstance:
       objectReference: {fileID: 227952526}
     - target: {fileID: 7818214282200244593, guid: 68719fb66ecaf9c4ca71927bfc0728c4, type: 3}
       propertyPath: moveSpeed
-      value: 300
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 7818214282200244594, guid: 68719fb66ecaf9c4ca71927bfc0728c4, type: 3}
       propertyPath: m_Name

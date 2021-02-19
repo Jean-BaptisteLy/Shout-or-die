@@ -21,6 +21,9 @@ public class GenerateLevel : MonoBehaviour
 		processData = gameObject.GetComponent<ProcessData>();
 		ratio_temps = 1 - processData.timeRatioList[processData.timeRatioList.Count - 1];
 
+	}
+
+	public void generateLevel() {
 		// Temps optimal pour chaque niveau
 		if (SceneManager.GetActiveScene().name == "Level 0") {
 			tempsOptimal = 0.0f;
@@ -61,9 +64,8 @@ public class GenerateLevel : MonoBehaviour
 		// Mauvais et lent
 		else if (processData.playerCategory == 1) {
 			// Destruction de toutes les pièces, ou random
-
+			
 		}
-
 	}
 
 	// Update is called once per frame

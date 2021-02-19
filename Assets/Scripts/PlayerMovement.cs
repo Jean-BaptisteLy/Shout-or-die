@@ -107,9 +107,9 @@ public class PlayerMovement : MonoBehaviour
             horizontalMovement = moveSpeed * Time.deltaTime;
         }
         // Déplacement au clavier
-        else if (Input.GetAxis("Horizontal") > 0 || Input.GetButtonDown("Jump")){
-            Vector3Int currentCell = tilemap.WorldToCell(transform.position);
-            currentCell.x += 1;
+        else if (Input.GetAxis("Horizontal") != 0 || Input.GetButtonDown("Jump")){
+            //Vector3Int currentCell = tilemap.WorldToCell(transform.position);
+            //currentCell.x += 1;
             Debug.Log("---------- Clavier ! ----------");
             //Debug.Log(tilemap.GetTile(currentCell));
 
@@ -230,7 +230,17 @@ public class PlayerMovement : MonoBehaviour
     public void resetPosition(){
         Vector2 originalPos;
         originalPos.x = 0f;
-        originalPos.y = 0f;
+        originalPos.y = -0.5f;
         this.gameObject.transform.position = originalPos;
     }
+
+    void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject.tag == "Death") {
+            //Destroy(gameObject); 
+            // or whatever kill script you want
+            resetPosition();
+            
+        }
+    }
 }
+
