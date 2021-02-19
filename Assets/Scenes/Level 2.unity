@@ -1794,6 +1794,68 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0f239e2ffd41c146aaeac754322968a, type: 3}
+--- !u!1001 &1362054651
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1721738196}
+    m_Modifications:
+    - target: {fileID: 1430658464049744481, guid: adbfeaecc71db9342abf17703552c16c, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430658464049744481, guid: adbfeaecc71db9342abf17703552c16c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430658464049744481, guid: adbfeaecc71db9342abf17703552c16c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430658464049744481, guid: adbfeaecc71db9342abf17703552c16c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430658464049744481, guid: adbfeaecc71db9342abf17703552c16c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430658464049744481, guid: adbfeaecc71db9342abf17703552c16c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430658464049744481, guid: adbfeaecc71db9342abf17703552c16c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430658464049744481, guid: adbfeaecc71db9342abf17703552c16c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430658464049744481, guid: adbfeaecc71db9342abf17703552c16c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430658464049744481, guid: adbfeaecc71db9342abf17703552c16c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430658464049744481, guid: adbfeaecc71db9342abf17703552c16c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430658464049744486, guid: adbfeaecc71db9342abf17703552c16c, type: 3}
+      propertyPath: m_Name
+      value: Tilemap death
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: adbfeaecc71db9342abf17703552c16c, type: 3}
+--- !u!4 &1362054652 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1430658464049744481, guid: adbfeaecc71db9342abf17703552c16c, type: 3}
+  m_PrefabInstance: {fileID: 1362054651}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1721738194
 GameObject:
   m_ObjectHideFlags: 0
@@ -1835,6 +1897,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 227952524}
+  - {fileID: 1362054652}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
