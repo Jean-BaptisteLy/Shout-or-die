@@ -18,6 +18,7 @@ public class Timer : MonoBehaviour
         ps = GameObject.Find("Player").GetComponent<PlayerStats>();
         //pd = gameObject.GetComponent<ProcessData>();
         pd = GameObject.Find("Player").GetComponent<ProcessData>();
+        pm = GameObject.Find("Player").GetComponent<PlayerMovement>();
         timeLeft = ps.timeOptimal;
         timeStay = ps.timeOptimal;
     }
