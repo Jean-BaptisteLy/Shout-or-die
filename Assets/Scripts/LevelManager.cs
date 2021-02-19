@@ -45,6 +45,9 @@ public class LevelManager : MonoBehaviour
 
     public void restartCurrentLevel(){
         Debug.Log("Restarting level");
+        if (timer.timeLeft <= 0.0f) {
+            
+        }
         SceneManager.LoadScene("Level " + currentLevel);
         pm.resetPosition();
         logWritter.resetLogger(currentLevel);
