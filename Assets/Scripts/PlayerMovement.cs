@@ -142,11 +142,11 @@ public class PlayerMovement : MonoBehaviour
            
         }
         else {
-        	Debug.Log("Dernier else.");
+        	// Debug.Log("Dernier else.");
         	
         	if(!checkWall && !isGrounded) {	
             	horizontalMovement = jumpHorizontal * Time.deltaTime;
-            	Debug.Log("Yes !");
+            	// Debug.Log("Yes !");
             	//Debug.Log(isGrounded);
         	}
         	else {
@@ -200,7 +200,7 @@ public class PlayerMovement : MonoBehaviour
         if (isJumping == true)
         {   
             // to uncomment
-            Debug.Log("test : "+test+" jumpForce : "+jumpForce);
+            // Debug.Log("test : "+test+" jumpForce : "+jumpForce);
             // Debug.Log("jumpForceKeyboard : "+jumpForceKeyboard);
             // Debug.Log("jumpForceMicrophone : "+jumpForceMicrophone);
             // Debug.Log("test : "+test+" jumpForce : "+jumpForce);
