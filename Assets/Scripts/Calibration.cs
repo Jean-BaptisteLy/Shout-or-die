@@ -15,6 +15,8 @@ public class Calibration : MonoBehaviour
     private DateTime startingTime;
     private float totalSeconds = 5f;
     private bool moveThreshReady = false;
+    public float moveThresh;
+    public float jumpThresh;
 
     // Start is called before the first frame update
     void Start(){
@@ -30,12 +32,12 @@ public class Calibration : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return)){
             calibrate();
         }
-        if ((totalSeconds - (DateTime.Now - startingTime).TotalSeconds <= 0f) && (moveThreshReady)){
+        if ((totalSeconds - (DateTime.Now - startingTime).TotalSeconds <= 0f) && (startingTime != null)){
+            moveThreshReady = true;
             StopCoroutine(coroutine);
+            Debug.Log(getMoveThresh());
             text.text = "Now a little bit louder...\n\n Press Enter when you are ready";
         }
-
-        
     }
 
     public void calibrate(){
@@ -43,11 +45,7 @@ public class Calibration : MonoBehaviour
         if (!moveThreshReady){
             text.text = "Generate sound with your average voice volume...\n"; 
         }
-        // else{
-        //     text.text = "Now a little bit louder..."
-        // }
         // Debug.Log("SecondsLeft: " + (totalSeconds - (DateTime.Now - startingTime).TotalSeconds) + "and" + secondsLeft*10);
-        moveThreshReady = true;
         StartCoroutine(coroutine);
         // now a little bit louder
     }
@@ -57,6 +55,7 @@ public class Calibration : MonoBehaviour
             // Debug.Log("Saving loudness info");
             text.text = Mathf.Round(totalSeconds - (float)(DateTime.Now - startingTime).TotalSeconds) + "...";
             if (!moveThreshReady){
+                Debug.Log("Value added!");
                 valuesForMoveThreshold.Add(1.0f);
             }else{
                 valuesForJumpThreshold.Add(2.0f);
@@ -64,4 +63,20 @@ public class Calibration : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
         }
     }
+
+    public float getMoveThresh(){
+        moveThresh = 0;
+        for (int i = 0; i < valuesForMoveThreshold.Count; i++){
+            moveThresh += valuesForMoveThreshold[i];
+            Debug.Log("moveThreshvalue = " + valuesForMoveThreshold[i]);
+        }
+        Debug.Log("moveThresh = " + moveThresh);
+        return moveThresh/valuesForMoveThreshold.Count;
+    }
+
+    public float getJumpThresh(){
+        return 2.0f;
+    }
+
+
 }
