@@ -67,6 +67,10 @@ public class PlayerMovement : MonoBehaviour
         }
 
         _audio.Play();
+        Calibration calibration = GameObject.Find("Thresholds").GetComponent<Calibration>();
+        runLoudnessThreshold = calibration.moveThresh;
+        jumpLoudnessThreshold = calibration.jumpThresh;
+
     }
 
     void Update()
