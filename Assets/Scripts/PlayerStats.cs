@@ -23,6 +23,8 @@ public class PlayerStats : MonoBehaviour
     public int coinsTotal;
     public float timeOptimal;
     public int currentLevel = 0;
+    public TMPro.TextMeshProUGUI text;
+    public Timer timer;
     // Start is called before the first frame update
     void Start(){
         pd = gameObject.GetComponent<ProcessData>();
@@ -35,6 +37,8 @@ public class PlayerStats : MonoBehaviour
         levelInfo.Add("Level3", Tuple.Create(5, 80.0f));
         coinsTotal = levelInfo["Level" + currentLevel].Item1;
         timeOptimal = levelInfo["Level" + currentLevel].Item2;
+        text = GameObject.Find("Canvas").GetComponentInChildren<TMPro.TextMeshProUGUI>();
+        timer = text.GetComponent<Timer>();
         // Tuple.Create(this.nbCoins, this.totalTime)
     }
 
@@ -45,6 +49,10 @@ public class PlayerStats : MonoBehaviour
 
     public void addCoin(){
         nbCoins++;
+        // coin that adds time if player is mauvais mais rapide
+        if (currentCategory == 1){
+            timer.timeLeft += 5f;
+        }
     }
 
     public void reinitStats(){

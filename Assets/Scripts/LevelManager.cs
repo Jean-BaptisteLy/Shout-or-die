@@ -26,8 +26,11 @@ public class LevelManager : MonoBehaviour
 
     void Update(){
         // player fell
-        if (rb.position.y <= -6.0f){
+        if ((rb.position.y <= -6.0f) || ((timer.timeLeft <= 0f) && (currentLevel != 0))){
             restartCurrentLevel();
+        }
+        if (Input.GetKeyDown("o")){
+            changeOfLevel();
         }
     }
     // Changing of level
