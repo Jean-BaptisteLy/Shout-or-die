@@ -38,6 +38,9 @@ public class LevelManager : MonoBehaviour
     	if (col.collider.tag == "end"){
             changeOfLevel();
         }
+        else if (col.collider.tag == "Death") {
+            restartCurrentLevel();
+        }
     }
 
     public void restartCurrentLevel(){

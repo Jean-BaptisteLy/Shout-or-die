@@ -39,12 +39,15 @@ public class PlayerMovement : MonoBehaviour
     public Tilemap tilemap;
     private Vector3Int previous;
 
+    //private LevelManager LevelManager;
+
     // Tests
     public float test = 0;
     //public Transform prefab;
 
     void Start()
     {
+        //levelManager = GetComponent<LevelManager>();
         // Déplacement au microphone
         foreach (var device in Microphone.devices)
         {
@@ -232,15 +235,6 @@ public class PlayerMovement : MonoBehaviour
         originalPos.x = 0f;
         originalPos.y = -0.5f;
         this.gameObject.transform.position = originalPos;
-    }
-
-    void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.tag == "Death") {
-            //Destroy(gameObject); 
-            // or whatever kill script you want
-            resetPosition();
-            
-        }
     }
 }
 
