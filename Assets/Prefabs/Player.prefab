@@ -670,6 +670,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   elapsedTime: 0
   timeLeft: 0
+  timeStay: 0
 --- !u!1 &7818214282200244594
 GameObject:
   m_ObjectHideFlags: 0
@@ -692,6 +693,7 @@ GameObject:
   - component: {fileID: 1094173846}
   - component: {fileID: 1094173847}
   - component: {fileID: 1094173848}
+  - component: {fileID: 8283349583444599880}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -984,6 +986,8 @@ MonoBehaviour:
   coinsTotal: 2
   timeOptimal: 20
   currentLevel: 0
+  text: {fileID: 0}
+  timer: {fileID: 0}
 --- !u!114 &891505019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -996,6 +1000,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbc7a4b5563884fd58ed74e05a75a6f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeRatioList: []
+  playerCategory: 0
 --- !u!114 &1094173845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1049,3 +1055,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea1a151de24194784a17b1a2dfa55151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8283349583444599880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7818214282200244594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b17a05431857e94eb51df8af20259e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeIsUp: 0
