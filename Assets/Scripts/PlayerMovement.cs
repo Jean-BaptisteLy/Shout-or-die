@@ -117,7 +117,7 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetAxis("Horizontal") != 0 || Input.GetButtonDown("Jump")){
             //Vector3Int currentCell = tilemap.WorldToCell(transform.position);
             //currentCell.x += 1;
-            Debug.Log("---------- Clavier ! ----------");
+            //Debug.Log("---------- Clavier ! ----------");
             //Debug.Log(tilemap.GetTile(currentCell));
 
             // https://docs.unity3d.com/ScriptReference/Tilemaps.Tilemap.GetCellCenterWorld.html

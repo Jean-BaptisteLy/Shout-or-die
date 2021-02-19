@@ -28,7 +28,7 @@ public class LevelManager : MonoBehaviour
 
     void Update(){
         // player fell
-        if ((rb.position.y <= -6.0f) || ((timer.timeLeft <= 0f) && (currentLevel != 0) && (playerStats.currentCategory != 0)) || timer.timeStay <= 0){
+        if ( (rb.position.y <= -6.0f) || ( (timer.timeLeft <= 0f || timer.timeStay <= 0f) && (currentLevel != 0) && (playerStats.currentCategory != 0) ) ){
             restartCurrentLevel();
         }
         if (Input.GetKeyDown("o")){

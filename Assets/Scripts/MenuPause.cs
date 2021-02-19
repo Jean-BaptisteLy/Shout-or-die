@@ -15,11 +15,15 @@ public class MenuPause : MonoBehaviour
 	public bool timeIsUp = false;
 	private TMPro.TextMeshProUGUI text;
 	private Timer timer;
+	private LevelManager lm;
+	private PlayerStats playerStats;
     // Start is called before the first frame update
     void Start()
     {
     	TMPro.TextMeshProUGUI text = GameObject.Find("Canvas").GetComponentInChildren<TMPro.TextMeshProUGUI>();
     	timer = text.GetComponent<Timer>();
+    	lm = gameObject.GetComponent<LevelManager>();
+    	playerStats = gameObject.GetComponent<PlayerStats>();
     }
 
     // Update is called once per frame
@@ -29,11 +33,11 @@ public class MenuPause : MonoBehaviour
         {
         	isPaused = !isPaused;
     	}
-    	if (timer.timeLeft <= 0.0f || timer.timeStay <= 0.0f) {
+    	if ( (timer.timeLeft <= 0f || timer.timeStay <= 0f) && (lm.currentLevel != 0) && (playerStats.currentCategory != 0) ) {
     	//if (timer.elapsedTime == 5.0f) { // Test, to delete
     		timeIsUp = !timeIsUp;
     	}
-    	if(isPaused || timeIsUp)
+    	if(isPaused)
         	Time.timeScale = 0f;
     	else
         	Time.timeScale = 1f;
