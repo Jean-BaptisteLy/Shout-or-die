@@ -11,6 +11,7 @@ public class Timer : MonoBehaviour
     public float timeStay;
     private PlayerStats ps;
     private ProcessData pd;
+    private PlayerMovement pm;
     // Start is called before the first frame update
     void Start(){
         text = GetComponent<TMPro.TextMeshProUGUI>();
@@ -25,7 +26,9 @@ public class Timer : MonoBehaviour
     void Update(){
         elapsedTime += Time.deltaTime;
         timeLeft -= Time.deltaTime;
-        timeStay -= Time.deltaTime;
+        if (pm.loudness < pm.runLoudnessThreshold) {
+            timeStay -= Time.deltaTime;
+        }
         if (ps.currentLevel == 0){
             text.text = "Elapsed time: " + Mathf.Round(elapsedTime);
         }else{
