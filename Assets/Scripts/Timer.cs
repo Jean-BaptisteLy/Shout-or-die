@@ -14,7 +14,8 @@ public class Timer : MonoBehaviour
     void Start(){
         text = GetComponent<TMPro.TextMeshProUGUI>();
         ps = GameObject.Find("Player").GetComponent<PlayerStats>();
-        pd = gameObject.GetComponent<ProcessData>();
+        //pd = gameObject.GetComponent<ProcessData>();
+        pd = GameObject.Find("Player").GetComponent<ProcessData>();
         timeLeft = ps.timeOptimal;
     }
 
