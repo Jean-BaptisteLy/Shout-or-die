@@ -36,11 +36,10 @@ public class PlayerStats : MonoBehaviour
         levelInfo.Add("Level2", Tuple.Create(4, 80.0f));
         levelInfo.Add("Level3", Tuple.Create(5, 80.0f));
         coinsTotal = levelInfo["Level" + currentLevel].Item1;
-        // temps optimal adapté au ratio temps du joueur
-        timeOptimal = levelInfo["Level" + currentLevel].Item2 + (levelInfo["Level" + currentLevel].Item2 * (1 - pd.timeRatioList[pd.timeRatioList.Count - 1]));
+        // // temps optimal adapté au ratio temps du joueur
+        // timeOptimal = levelInfo["Level" + currentLevel].Item2 + (levelInfo["Level" + currentLevel].Item2 * (1 - pd.timeRatioList[pd.timeRatioList.Count - 1]));
         text = GameObject.Find("Canvas").GetComponentInChildren<TMPro.TextMeshProUGUI>();
         timer = text.GetComponent<Timer>();
-        // Tuple.Create(this.nbCoins, this.totalTime)
     }
 
     // Update is called once per frame
@@ -75,7 +74,7 @@ public class PlayerStats : MonoBehaviour
         // TO DO: extract this info (timeopt and totalcoins) automatically from level info once it has been generated
         // Debug.Log("updatelevelendinstats calling addplayerstats");
         // no player category for the very first level (initialization level)
-        // if (currentLevel != 0){
+        if (currentLevel != 0){
         //     Debug.Log("Current level: " + currentLevel);
         //     // TODO: check if it works
         //     coinsTotal = levelInfo["Level" + currentLevel].Item1;
@@ -84,6 +83,9 @@ public class PlayerStats : MonoBehaviour
         //     // coinsTotal = levelInfo["Level" + currentLevel + "." + currentCategory].Item1;
         //     // timeOptimal = levelInfo["Level" + currentLevel + "." + currentCategory].Item2;
         // }
+        // temps optimal adapté au ratio temps du joueur
+            timeOptimal = levelInfo["Level" + currentLevel].Item2 + (levelInfo["Level" + currentLevel].Item2 * (1 - pd.timeRatioList[pd.timeRatioList.Count - 1]));
+        }
         pd.addPlayerStats(nbCoins, coinsTotal, (float)totalTime, (float)timeOptimal);
         pd.upgradelastPlayedLevelNumber();
         

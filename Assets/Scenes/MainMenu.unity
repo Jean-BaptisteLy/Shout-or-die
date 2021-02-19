@@ -593,7 +593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d128f7aada6c09e47abea1097187e289, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelToLoad: Level 0
+  levelToLoad: Calibration
 --- !u!1 &865820767
 GameObject:
   m_ObjectHideFlags: 0
