@@ -26,9 +26,12 @@ public class Timer : MonoBehaviour
         if (ps.currentLevel == 0){
             text.text = "Elapsed time: " + Mathf.Round(elapsedTime);
         }else{
-            if(pd.playerCategory == 0) {
+            // slow and bad
+            if(pd.playerCategory != 0) {
                 Debug.Log("Timer.cs : playerCategory = 0");
                 text.text = "Time left: " + Mathf.Round(timeLeft);
+            }else{
+                text.text = "Elapsed time: " + Mathf.Round(elapsedTime);
             }
         }
     }

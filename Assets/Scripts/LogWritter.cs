@@ -85,9 +85,9 @@ public class LogWritter : MonoBehaviour{
     }
 
     private IEnumerator WaitAndWrite(){
-        Debug.Log("la coroutine commence");
+        // Debug.Log("la coroutine commence");
         while(true){
-            Debug.Log("coroutine");
+            // Debug.Log("coroutine");
             totalTime = (DateTime.Now - startTime).TotalSeconds;
             // timeValues.Add(totalTime.ToString()); // to uncomment maybe
             float loudness = pm.loudness;
@@ -98,7 +98,7 @@ public class LogWritter : MonoBehaviour{
             // writer.Flush(); // to uncomment maybe
             yield return new WaitForSeconds(nbSeconds);
         }
-        Debug.Log("c'est fini la coroutine");
+        // Debug.Log("c'est fini la coroutine");
     }
 
     private string getLoudnessPath(int level){
@@ -113,7 +113,7 @@ public class LogWritter : MonoBehaviour{
 
     public void writeDownStats(){
         Tuple<int, double> stats = ps.getStats();
-        Debug.Log(stats);
+        // Debug.Log(stats);
         statsWriter.WriteLine(currentLevel + "," + stats.Item1 + "," + stats.Item2);
         statsWriter.Flush();
     }
