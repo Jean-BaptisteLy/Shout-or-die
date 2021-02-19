@@ -36,7 +36,8 @@ public class PlayerStats : MonoBehaviour
         levelInfo.Add("Level2", Tuple.Create(4, 80.0f));
         levelInfo.Add("Level3", Tuple.Create(5, 80.0f));
         coinsTotal = levelInfo["Level" + currentLevel].Item1;
-        timeOptimal = levelInfo["Level" + currentLevel].Item2;
+        // temps optimal adapté au ratio temps du joueur
+        timeOptimal = levelInfo["Level" + currentLevel].Item2 + (levelInfo["Level" + currentLevel].Item2 * (1 - pd.timeRatioList[pd.timeRatioList.Count - 1]));
         text = GameObject.Find("Canvas").GetComponentInChildren<TMPro.TextMeshProUGUI>();
         timer = text.GetComponent<Timer>();
         // Tuple.Create(this.nbCoins, this.totalTime)
@@ -50,7 +51,7 @@ public class PlayerStats : MonoBehaviour
     public void addCoin(){
         nbCoins++;
         // coin that adds time if player is mauvais mais rapide
-        if (currentCategory == 1 or currentCategory == 3){
+        if (currentCategory == 1 || currentCategory == 3) {
             timer.timeLeft += 5f;
         }
     }
