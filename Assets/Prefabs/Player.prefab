@@ -670,6 +670,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   elapsedTime: 0
   timeLeft: 0
+  timeStay: 0
 --- !u!1 &7818214282200244594
 GameObject:
   m_ObjectHideFlags: 0
@@ -817,7 +818,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2300787b5c0e0bd4888c9d24fbd74e88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 200
+  moveSpeed: 1000
   isJumping: 0
   isGrounded: 1
   rb: {fileID: 7818214282200244599}
@@ -984,6 +985,8 @@ MonoBehaviour:
   coinsTotal: 2
   timeOptimal: 20
   currentLevel: 0
+  text: {fileID: 0}
+  timer: {fileID: 0}
 --- !u!114 &891505019
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -996,6 +999,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbc7a4b5563884fd58ed74e05a75a6f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeRatioList: []
+  playerCategory: 0
 --- !u!114 &1094173845
 MonoBehaviour:
   m_ObjectHideFlags: 0

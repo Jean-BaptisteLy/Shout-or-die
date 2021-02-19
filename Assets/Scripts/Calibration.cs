@@ -21,6 +21,7 @@ public class Calibration : MonoBehaviour
     AudioSource _audio;
     private float sensitivity = 100.0f;
     private float loudness = 0.0f;
+    private PlayerMovement pm;
 
     void Start(){
         text = GameObject.Find("Canvas").GetComponentInChildren<TMPro.TextMeshProUGUI>();
@@ -36,28 +37,38 @@ public class Calibration : MonoBehaviour
 
     // Update is called once per frame
     void Update(){
-        loudness = GetAverageVolume() * sensitivity;
-        if (Input.GetKeyDown(KeyCode.Return)){
-            calibrate();
-        }
-        if ((totalSeconds - (DateTime.Now - startingTime).TotalSeconds <= 0f) && (valuesForMoveThreshold.Count == 10)){
-            moveThreshReady = true;
-            StopCoroutine(coroutine);
-            // Debug.Log(getMoveThresh());
-            text.text = "Now a little bit louder...\n\n Press Enter when you are ready";
-        }
-        if ((totalSeconds - (DateTime.Now - startingTime).TotalSeconds <= 0f) && (valuesForJumpThreshold.Count == 10)){
-            StopCoroutine(coroutine);
-            Debug.Log(getJumpThresh());
-            text.text = "Let's play!";
-            coroutine = WaitForTwoSeconds();
-            StartCoroutine(coroutine);
-            // change of scene
-            SceneManager.LoadScene("Level 0");
-            // initialize player thresholds here
-            // TODO
-            // deactivate calibration
-            gameObject.SetActive(false);
+        if (SceneManager.GetActiveScene().name == "Calibration"){
+            loudness = GetAverageVolume() * sensitivity;
+        // if (SceneManager.GetActiveScene().name == "Level 0"){
+        //     pm = GameObject.Find("Player").GetComponent<PlayerMovement>();
+        // }
+            if (Input.GetKeyDown(KeyCode.Return)){
+                calibrate();
+            }
+            if ((totalSeconds - (DateTime.Now - startingTime).TotalSeconds <= 0f) && (valuesForMoveThreshold.Count == 10)){
+                moveThreshReady = true;
+                StopCoroutine(coroutine);
+                // Debug.Log(getMoveThresh());
+                text.text = "Now a little bit louder...\n\n Press Enter when you are ready";
+            }
+            if ((totalSeconds - (DateTime.Now - startingTime).TotalSeconds <= 0f) && (valuesForJumpThreshold.Count == 10)){
+                StopCoroutine(coroutine);
+                // Debug.Log(getJumpThresh());
+                text.text = "Let's play!";
+                coroutine = WaitForTwoSeconds();
+                StartCoroutine(coroutine);
+                moveThresh = getMoveThresh();
+                jumpThresh = getJumpThresh();
+                // change of scene
+                SceneManager.LoadScene("Level 0");
+                // initialize player thresholds here
+                GameObject player = GameObject.Find("Player");
+                // pm = player.GetComponent<PlayerMovement>();
+                // pm.runLoudnessThreshold = moveThresh;
+                // pm.jumpLoudnessThreshold = jumpThresh;
+                // deactivate calibration
+                // gameObject.SetActive(false);
+            }
         }
     }
 
