@@ -33,7 +33,7 @@ public class MenuPause : MonoBehaviour
         {
         	isPaused = !isPaused;
     	}
-    	if ( (timer.timeLeft <= 0f || timer.timeStay <= 0f) && (lm.currentLevel != 0) && (playerStats.currentCategory != 0) ) {
+    	if ( (timer.timeLeft <= 0f || timer.timeStay <= 0f) && (lm.currentLevel != 0) && (playerStats.currentCategory != 0) && timeIsUp == false ) {
     	//if (timer.elapsedTime == 5.0f) { // Test, to delete
     		timeIsUp = !timeIsUp;
     	}
@@ -68,6 +68,7 @@ public class MenuPause : MonoBehaviour
     		if(GUI.Button(new Rect(Screen.width / 2 - 40, Screen.height / 2 - 20, 80, 40), "Time's up !"))
 	        {
 	            timeIsUp = false;
+	            lm.restartCurrentLevel();
 	        }
     	}
 	}
