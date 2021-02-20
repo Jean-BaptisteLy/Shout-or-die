@@ -68,10 +68,12 @@ public class LevelManager : MonoBehaviour
         removeAllCoins();
     }
     public void removeAllCoins() {
+        Debug.Log("Inside remove all coins");
         if (playerStats.currentCategory == 0) {
-            foreach (GameObject obj in Object.FindObjectsOfType(typeof(GameObject)))
-            {
+            foreach (GameObject obj in Object.FindObjectsOfType(typeof(GameObject))){
+                Debug.Log("GameObject found");
                 if (obj.tag == "coin") {
+                    Debug.Log("It's a coin!");
                     Destroy(obj);
                 }
             }

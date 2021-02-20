@@ -90,6 +90,7 @@ public class PlayerStats : MonoBehaviour
         }
         pd.addPlayerStats(nbCoins, coinsTotal, (float)totalTime, (float)timeOptimal);
         pd.upgradelastPlayedLevelNumber();
+        currentCategory = pd.playerCategory;
         
     }
 

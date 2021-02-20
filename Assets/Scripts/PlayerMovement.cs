@@ -92,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Saut
         if (loudness >= jumpLoudnessThreshold && isGrounded) {
-            Debug.Log("---------- Je saute ! ----------");
+            // Debug.Log("---------- Je saute ! ----------");
             //Debug.Log ("loudness : "+loudness);
             //Debug.Log ("jumpLoudnessThreshold : "+jumpLoudnessThreshold);
             //rb.AddForce( Vector3.up * jumpForce);
@@ -140,7 +140,7 @@ public class PlayerMovement : MonoBehaviour
                 jumpForce = jumpForceKeyboard;
                 isJumping = true;
                 test = 0;
-                Debug.Log("Je saute !");
+                // Debug.Log("Je saute !");
             }
             //if(!checkWall && !isGrounded && isJumping && lastCheckWall) {
            
