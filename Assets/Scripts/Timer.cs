@@ -36,7 +36,13 @@ public class Timer : MonoBehaviour
             // slow and bad
             if(ps.currentCategory != 0) {
                 //Debug.Log("Timer.cs : playerCategory = 0");
-                text.text = "Time left: " + Mathf.Round(timeLeft)+ "\nTime stay: " + Mathf.Round(timeStay);
+                if (ps.currentCategory == 1){
+                    text.text = "Time left: " + Mathf.Round(timeLeft);
+                }else if (ps.currentCategory == 3){
+                    text.text = "Time left: " + Mathf.Round(timeLeft)+ "\nTime stay: " + Mathf.Round(timeStay);
+                }else{
+                    text.text = "Time stay: " + Mathf.Round(timeStay);
+                }
             }else{
                 text.text = "Elapsed time: " + Mathf.Round(elapsedTime);
             }
@@ -50,12 +56,12 @@ public class Timer : MonoBehaviour
             timeLeft = 9999; // infini
         }
         else if (pd.playerCategory == 1) {
-            // time stay
-            timeStay = (ps.timeOptimal / 2) / pd.timeRatioList[pd.timeRatioList.Count - 1];
+            // time left
+            timeLeft = (ps.timeOptimal / 2) / pd.timeRatioList[pd.timeRatioList.Count - 1];
         }
         else if (pd.playerCategory == 2) {
             // time initial
-            timeLeft = (ps.timeOptimal / 2) / pd.timeRatioList[pd.timeRatioList.Count - 1];
+            timeStay = (ps.timeOptimal / 2) / pd.timeRatioList[pd.timeRatioList.Count - 1];
         }
         else if (pd.playerCategory == 3) {
             // time stay

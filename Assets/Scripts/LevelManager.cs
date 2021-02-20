@@ -24,7 +24,6 @@ public class LevelManager : MonoBehaviour
         playerStats = gameObject.GetComponent<PlayerStats>();
         TMPro.TextMeshProUGUI text = GameObject.Find("Canvas").GetComponentInChildren<TMPro.TextMeshProUGUI>();
         timer = text.GetComponent<Timer>();
-        removeAllCoins();
     }
 
     void Update(){
@@ -35,6 +34,7 @@ public class LevelManager : MonoBehaviour
         if (Input.GetKeyDown("o")){
             changeOfLevel();
         }
+        removeAllCoins();
     }
     // Changing of level
     void OnCollisionEnter2D(Collision2D col){
