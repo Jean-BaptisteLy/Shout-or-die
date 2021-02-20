@@ -46,12 +46,12 @@ public class PlayerMovement : MonoBehaviour
     //public Transform prefab;
 
     void Start()
-    {
+    {   
         //levelManager = GetComponent<LevelManager>();
         // Déplacement au microphone
         foreach (var device in Microphone.devices)
         {
-            //Debug.Log("Name: " + device);
+            Debug.Log("Name: " + device);
             //Debug.Log("Microphone.GetDeviceCaps : "+device.GetDeviceCaps);
         }
 

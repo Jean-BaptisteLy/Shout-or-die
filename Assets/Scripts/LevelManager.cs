@@ -24,6 +24,7 @@ public class LevelManager : MonoBehaviour
         playerStats = gameObject.GetComponent<PlayerStats>();
         TMPro.TextMeshProUGUI text = GameObject.Find("Canvas").GetComponentInChildren<TMPro.TextMeshProUGUI>();
         timer = text.GetComponent<Timer>();
+        removeAllCoins();
     }
 
     void Update(){
@@ -65,11 +66,11 @@ public class LevelManager : MonoBehaviour
         logWritter.startNewLevelLogger(currentLevel);
         playerStats.reinitStats();
         timer.restartTimer();
-        removeAllCoins();
+        //removeAllCoins();
     }
     public void removeAllCoins() {
         Debug.Log("Inside remove all coins");
-        if (playerStats.currentCategory == 0) {
+        if (playerStats.currentCategory == 0 && playerStats.currentLevel != 0) {
             foreach (GameObject obj in Object.FindObjectsOfType(typeof(GameObject))){
                 Debug.Log("GameObject found");
                 if (obj.tag == "coin") {
