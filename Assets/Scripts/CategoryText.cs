@@ -17,7 +17,6 @@ public class CategoryText : MonoBehaviour
 
     // Update is called once per frame
     void Update(){
-        Debug.Log("Current level: " + playerStats.currentLevel);
         if(playerStats.currentLevel!=0){
             text.text = "Player category: " + playerStats.currentCategory;
         }
