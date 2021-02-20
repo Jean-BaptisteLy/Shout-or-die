@@ -31,10 +31,10 @@ public class PlayerStats : MonoBehaviour
         // nbCoins = 0;
         startingTime = DateTime.Now;
         // Initialize dictionary of level information
-        levelInfo.Add("Level0", Tuple.Create(6, 80.0f));
-        levelInfo.Add("Level1", Tuple.Create(7, 80.0f));
-        levelInfo.Add("Level2", Tuple.Create(4, 80.0f));
-        levelInfo.Add("Level3", Tuple.Create(5, 80.0f));
+        levelInfo.Add("Level0", Tuple.Create(6, 20.0f));
+        levelInfo.Add("Level1", Tuple.Create(7, 30.0f));
+        levelInfo.Add("Level2", Tuple.Create(4, 40.0f));
+        levelInfo.Add("Level3", Tuple.Create(5, 50.0f));
         coinsTotal = levelInfo["Level" + currentLevel].Item1;
         // // temps optimal adapté au ratio temps du joueur
         // timeOptimal = levelInfo["Level" + currentLevel].Item2 + (levelInfo["Level" + currentLevel].Item2 * (1 - pd.timeRatioList[pd.timeRatioList.Count - 1]));
@@ -85,6 +85,8 @@ public class PlayerStats : MonoBehaviour
         // }
         // temps optimal adapté au ratio temps du joueur
             timeOptimal = levelInfo["Level" + currentLevel].Item2 + (levelInfo["Level" + currentLevel].Item2 * (1 - pd.timeRatioList[pd.timeRatioList.Count - 1]));
+        }else{
+            timeOptimal = levelInfo["Level0"].Item2;
         }
         pd.addPlayerStats(nbCoins, coinsTotal, (float)totalTime, (float)timeOptimal);
         pd.upgradelastPlayedLevelNumber();

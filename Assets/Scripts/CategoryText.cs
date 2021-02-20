@@ -5,7 +5,7 @@ using UnityEngine;
 public class CategoryText : MonoBehaviour
 {
     // Start is called before the first frame update
-    private TMPro.TextMeshProUGUI text;
+    public TMPro.TextMeshProUGUI text;
     private GameObject player;
     private PlayerStats playerStats;
     void Start(){
@@ -17,6 +17,7 @@ public class CategoryText : MonoBehaviour
 
     // Update is called once per frame
     void Update(){
+        Debug.Log("Current level: " + playerStats.currentLevel);
         if(playerStats.currentLevel!=0){
             text.text = "Player category: " + playerStats.currentCategory;
         }

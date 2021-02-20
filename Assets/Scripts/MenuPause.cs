@@ -48,18 +48,18 @@ public class MenuPause : MonoBehaviour
 	    if(isPaused)
 	    {
 	        // Si on clique sur le bouton alors isPaused devient faux donc le jeu reprend
-	        if(GUI.Button(new Rect(Screen.width / 2 - 40, Screen.height / 2 - 20, 80, 40), "Continuer"))
+	        if(GUI.Button(new Rect(Screen.width / 2 - 40, Screen.height / 2 - 20, 80, 40), "Resume"))
 	        {
 	            isPaused = false;
 	        }
 	        // Si on clique sur le bouton alors on ferme completment le jeu ou on charge la scene Menu Principal
 	        // Dans le cas du bouton Quitter, il faut augmenter sa position Y pour qu'il soit plus bas.
-	        if(GUI.Button(new Rect(Screen.width / 2 - 40, Screen.height / 2 + 40, 80, 40), "Menu"))
+	        if(GUI.Button(new Rect(Screen.width / 2 - 40, Screen.height / 2 + 40, 80, 40), "Main menu"))
 	        {
 	            //Application.LoadLevel(sceneToLoad.name); // Charge le menu principal
 	        	SceneManager.LoadScene("MainMenu"); // Charge le menu principal
 	        }
-	        if(GUI.Button(new Rect(Screen.width / 2 - 40, Screen.height / 2 + 100, 80, 40), "Quitter"))
+	        if(GUI.Button(new Rect(Screen.width / 2 - 40, Screen.height / 2 + 100, 80, 40), "Exit game"))
 	        {
 	            Application.Quit(); // Ferme le jeu
 	        }

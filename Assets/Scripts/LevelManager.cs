@@ -68,7 +68,7 @@ public class LevelManager : MonoBehaviour
         removeAllCoins();
     }
     public void removeAllCoins() {
-        if (pd.playerCategory == 0) {
+        if (playerStats.currentCategory == 0) {
             foreach (GameObject obj in Object.FindObjectsOfType(typeof(GameObject)))
             {
                 if (obj.tag == "coin") {

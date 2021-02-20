@@ -74,9 +74,11 @@ public class ProcessData : MonoBehaviour
         float levelCoinsRatio = coinsCollected/coinsTotal;
         float levelTimeRatio;
         if (lastPlayedLevel == 0){
-            levelTimeRatio = 0.5f + (20.0f - timePlayer)/(2.0f*20.0f);
+            levelTimeRatio = timeOptimal/timePlayer;
+            // levelTimeRatio = 1 - timePlayer/timeOptimal;
         }else{
-            levelTimeRatio = timePlayer/timeOptimal;
+            levelTimeRatio = timeOptimal/timePlayer;
+            // levelTimeRatio = = 0.5f*timePlayer/timeOptimal + 0.5f*timeRatioList[timeRatioList.Count - 1];
         }
 
         // Add them to lists
