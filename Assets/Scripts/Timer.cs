@@ -55,13 +55,13 @@ public class Timer : MonoBehaviour
         }
         else if (pd.playerCategory == 2) {
             // time initial
-            timeLeft = (ps.timeOptimal / 10) / pd.timeRatioList[pd.timeRatioList.Count - 1];
+            timeLeft = (ps.timeOptimal / 2) / pd.timeRatioList[pd.timeRatioList.Count - 1];
         }
         else if (pd.playerCategory == 3) {
             // time stay
             timeStay = (ps.timeOptimal / 2) / pd.timeRatioList[pd.timeRatioList.Count - 1];
             // time initial
-            timeLeft = (ps.timeOptimal / 10) / pd.timeRatioList[pd.timeRatioList.Count - 1];
+            timeLeft = (ps.timeOptimal / 2) / pd.timeRatioList[pd.timeRatioList.Count - 1];
         }
         else {
             Debug.Log("Problème Timer.cs... Impossible.");

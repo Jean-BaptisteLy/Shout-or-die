@@ -51,11 +51,19 @@ public class ProcessData : MonoBehaviour
         float levelCoinsRatio = (coinsCollected*1.0f)/coinsTotal;
         // Debug.Log("levelCoinsRatio: " + coinsCollected + "/" + coinsTotal +"= " + levelCoinsRatio);
         float levelTimeRatio;
+        Debug.Log("LevelInfo: " + "timeOpt: " + timeOptimal + "timePlayer" + timePlayer);
         if (lastPlayedLevel == 0){
-            levelTimeRatio = timeOptimal/timePlayer;
+            if (timePlayer < 20.0f){
+                levelTimeRatio = 1.0f;
+            }else{
+                levelTimeRatio = 20.0f/timePlayer;
+            }
             // levelTimeRatio = 1 - timePlayer/timeOptimal;
         }else{
             levelTimeRatio = timeOptimal/timePlayer;
+            if (levelTimeRatio > 1.0f){
+                levelTimeRatio = 1.0f;
+            }
             // levelTimeRatio = = 0.5f*timePlayer/timeOptimal + 0.5f*timeRatioList[timeRatioList.Count - 1];
         }
 
