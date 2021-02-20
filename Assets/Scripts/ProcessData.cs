@@ -29,25 +29,9 @@ public class ProcessData : MonoBehaviour
 
     }
     public void addPlayerStats(int coinsCollected, int coinsTotal, float timePlayer, float timeOptimal){
-        // filePath = getPath();   
-        // StreamReader sr = new StreamReader(filePath);
-        // string line = sr.ReadLine();
-        // // Read and display lines from the file until the end of
-        // // the file is reached.
-        // while ((line = sr.ReadLine()) != null){
-        //     string[] lineValues= line.Split(',');
-        //     addRatios(lineValues);
-        // }
-        
-        // add ratios to their list, then updates the user category
-        // Debug.Log("addplayerstats");
         processDataCurve();
         addRatios(coinsCollected, coinsTotal, timePlayer, timeOptimal);
         playerCategory = getUpdatedCategory();
-        // Debug.Log("afeter getUpdatedCategory middle statsplayer");
-        // Debug.Log("Level: " + lastPlayedLevel + ", Player Category: " + playerCategory);
-        // lastPlayedLevel++;
-        // Debug.Log("end of addplayerstats");
 
     }
     // Update is called once per frame
@@ -63,15 +47,9 @@ public class ProcessData : MonoBehaviour
     }
 
     private void addRatios(int coinsCollected, int coinsTotal, float timePlayer, float timeOptimal){
-    // private void addRatios(string[] lineValues){
-        // int level = Int32.Parse(lineValues[0]);
-        // int coinsCollected = Int32.Parse(lineValues[1]);
-        // int coinsTotal = Int32.Parse(lineValues[2]);
-        // float timePlayer =  float.Parse(lineValues[3]);
-        // float timeOptimal = float.Parse(lineValues[4]);
-
         // Calculate ratios
-        float levelCoinsRatio = coinsCollected/coinsTotal;
+        float levelCoinsRatio = (coinsCollected*1.0f)/coinsTotal;
+        // Debug.Log("levelCoinsRatio: " + coinsCollected + "/" + coinsTotal +"= " + levelCoinsRatio);
         float levelTimeRatio;
         if (lastPlayedLevel == 0){
             levelTimeRatio = timeOptimal/timePlayer;
@@ -92,7 +70,6 @@ public class ProcessData : MonoBehaviour
             // 1: fast but bad
             // 2: slow but good
             // 3: fast and good
-        // Debug.Log("inside getUpdatedCat");
         // gamma for quality: importance of current score
         float gammaOne = 0.7f;
         // gamma for time: importance of current score
@@ -104,6 +81,7 @@ public class ProcessData : MonoBehaviour
 
         if (lastPlayedLevel == 0){
             // do something else
+            // Debug.Log("Level0 coins Ratio: " + coinsRatioList[lastPlayedLevel]);
             fOne = coinsRatioList[lastPlayedLevel];
             // specific data-processing for level 0 because it is an initialization level
             fTwo = timeRatioList[lastPlayedLevel];
@@ -112,7 +90,8 @@ public class ProcessData : MonoBehaviour
             fOne = gammaOne*coinsRatioList[lastPlayedLevel] + (1-gammaOne)*coinsRatioList[lastPlayedLevel-1];
             fTwo = gammaTwo*timeRatioList[lastPlayedLevel] + (1-gammaTwo)*timeRatioList[lastPlayedLevel-1];
         }
-
+        Debug.Log("Last played level: " + lastPlayedLevel);
+        Debug.Log("fOne: " + fOne + ", fTwo:" + fTwo);
         if (fOne >= 0.5){
             if (fTwo >= 0.5){
                 // Bon et rapide
