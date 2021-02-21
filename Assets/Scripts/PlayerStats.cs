@@ -58,23 +58,32 @@ public class PlayerStats : MonoBehaviour
         timeOptimal = levelInfo["Level" + currentLevel].Item2;
     }
 
-    public Tuple<int, double> getStats(){
-        return Tuple.Create(this.nbCoins, this.totalTime);
+    public Tuple<int, int, float, float> getStats(){
+        // Debug.Log("Get stats, current level: " + currentLevel);
+        int levelN = currentLevel - 1;
+        int ccollected = this.nbCoins;
+        int coinsOnlevel = levelInfo["Level" + levelN].Item1;
+        float playerTime = (float)this.totalTime;
+        float optTime = levelInfo["Level" + levelN].Item2;
+        return Tuple.Create(ccollected, coinsOnlevel, playerTime, optTime);
     }
 
     public void updateLevelEndingStats(){
+        // Debug.Log("updateStats from level " + currentLevel);
         endingTime = DateTime.Now;
         totalTime = (endingTime - startingTime).TotalSeconds;
+        if (currentLevel <= 3){
         // no player category for the very first level (initialization level)
-        if (currentLevel != 0){
-        // temps optimal adapté au ratio temps du joueur
-            timeOptimal = levelInfo["Level" + currentLevel].Item2 + (levelInfo["Level" + currentLevel].Item2 * (1 - pd.timeRatioList[pd.timeRatioList.Count - 1]));
-        }else{
-            timeOptimal = levelInfo["Level0"].Item2;
+            if (currentLevel != 0){
+            // temps optimal adapté au ratio temps du joueur
+                timeOptimal = levelInfo["Level" + currentLevel].Item2 + (levelInfo["Level" + currentLevel].Item2 * (1 - pd.timeRatioList[pd.timeRatioList.Count - 1]));
+            }else{
+                timeOptimal = levelInfo["Level0"].Item2;
+            }
+            pd.addPlayerStats(nbCoins, coinsTotal, (float)totalTime, (float)timeOptimal);
+            pd.upgradelastPlayedLevelNumber();
+            currentCategory = pd.playerCategory;
         }
-        pd.addPlayerStats(nbCoins, coinsTotal, (float)totalTime, (float)timeOptimal);
-        pd.upgradelastPlayedLevelNumber();
-        currentCategory = pd.playerCategory;
         
     }
 

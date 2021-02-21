@@ -77,8 +77,9 @@ public class LogWritter : MonoBehaviour{
     }
 
     public void flushLevelLogger(){
-        // Debug.Log("flushLevelLogger");
+        // Debug.Log("Flush level logger, current level " + currentLevel);
         if (writer != null){
+            // Debug.Log("Flush level logger");
             writer.Flush();
             StopCoroutine(coroutine);
             // Debug.Log("flushLevelLogger a stop coroutine");
@@ -115,10 +116,12 @@ public class LogWritter : MonoBehaviour{
     }
 
     public void writeDownStats(){
-        Tuple<int, double> stats = ps.getStats();
-        // Debug.Log(stats);
-        statsWriter.WriteLine(currentLevel + "," + stats.Item1 + "," + stats.Item2);
-        statsWriter.Flush();
+        if (currentLevel <= 3){
+            Tuple<int, int, float, float> stats = ps.getStats();
+            // Debug.Log(stats);
+            statsWriter.WriteLine(currentLevel + "," + stats.Item1 + "," + stats.Item2 + "," + stats.Item3 + "," + stats.Item4);
+            statsWriter.Flush();
+        }
     }
 
     public List<float> getLoudnessData(){
@@ -126,11 +129,11 @@ public class LogWritter : MonoBehaviour{
     }
 
     void OnDestroy(){
-        if (writer != null){
+        if (writer != null && currentLevel<=3){
             writer.Flush();
             writer.Close();
         }
-        if (statsWriter != null){
+        if (statsWriter != null && currentLevel<=3){
             // Debug.Log("update level ending stats bc OnDestroy :( ");
             ps.updateLevelEndingStats();
             // Debug.Log("after update level ending stats bc onDestroy");
@@ -138,5 +141,9 @@ public class LogWritter : MonoBehaviour{
             statsWriter.Close();
             // Debug.Log("statsWriter closed");
         }
+    }
+
+    public void updateLevelNumber(){
+        currentLevel++;
     }
 }

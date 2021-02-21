@@ -41,15 +41,16 @@ public class LevelManager : MonoBehaviour
     // Changing of level
     void OnCollisionEnter2D(Collision2D col){
     	if (col.collider.tag == "end"){
-            Debug.Log(currentLevel);
+            //  Debug.Log("Level while collision: " + currentLevel);
             if (currentLevel == 3){
-                Debug.Log("Finished all levels");
+                // Debug.Log("Finished all levels");
                 playerStats.updateLevelEndingStats();
                 playerStats.upgradeLevelNumber();
                 // playerStats.reinitStats();
-                // timer.restartTimer();
+                timer.restartTimer();
                 logWritter.writeDownStats();
                 logWritter.flushLevelLogger();
+                logWritter.updateLevelNumber();
                 // logWritter.startNewLevelLogger(currentLevel);
                 SceneManager.LoadScene("Results");
                 GameObject player = GameObject.Find("Player");
