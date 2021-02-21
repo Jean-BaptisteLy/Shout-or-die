@@ -18,6 +18,7 @@ public class MenuPause : MonoBehaviour
 	private Timer timer;
 	private LevelManager lm;
 	private PlayerStats playerStats;
+	private GameObject player;
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -25,6 +26,8 @@ public class MenuPause : MonoBehaviour
 		timer = text.GetComponent<Timer>();
 		lm = gameObject.GetComponent<LevelManager>();
 		playerStats = gameObject.GetComponent<PlayerStats>();
+		player = GameObject.Find("Player");
+
 	}
 
 	// Update is called once per frame
@@ -65,7 +68,9 @@ public class MenuPause : MonoBehaviour
 			if(GUI.Button(new Rect(Screen.width / 2 - 40, Screen.height / 2 + 40, 80, 40), "Main menu"))
 			{
 				//Application.LoadLevel(sceneToLoad.name); // Charge le menu principal
+				isPaused = false;
 				SceneManager.LoadScene("MainMenu"); // Charge le menu principal
+				Destroy(player);
 			}
 			if(GUI.Button(new Rect(Screen.width / 2 - 40, Screen.height / 2 + 100, 80, 40), "Exit game"))
 			{
@@ -80,22 +85,30 @@ public class MenuPause : MonoBehaviour
 			}
 		}
 		else if (feedback) {
-			if (playerStats.currentCategory == 0) {
-				feedbackMessage = "feedback 0";
+			if (playerStats.currentLevel == 0){
+				feedback = false;
+			}
+			else if (playerStats.currentCategory == 0) {
+				feedbackMessage = "Focus on producing noise constantly.\n Click here to continue.";
 			}
 			else if (playerStats.currentCategory == 1) {
-				feedbackMessage = "feedback 1";
+				feedbackMessage = "Try to better modulate your voice to collect more coins. \n Click here to continue.";
 			}
 			else if (playerStats.currentCategory == 2) {
-				feedbackMessage = "feedback 2";
+				feedbackMessage = "Try not to stop producing noise so you finish the level \n on time and keep on modulating your voice to collect coins. \n Click here to continue.";
 			}
 			else if (playerStats.currentCategory == 3) {
-				feedbackMessage = "feedback 3";
+				feedbackMessage = "You are doing well, keep on like that! \n Click here to continue.";
 			}
-			if(GUI.Button(new Rect(Screen.width / 2 - 40, Screen.height / 2 - 20, 80, 40), feedbackMessage)) {
+			if (GUI.Button(new Rect(Screen.width / 2 - 40, Screen.height / 2 - 20, 480, 80), feedbackMessage) && feedback) {
 				feedback = false;
 			}
 		}
+	}
+
+	public void inverseFeedbackBool(){
+		// inverses the value of the feedback variable
+		feedback = !feedback;
 	}
 }
 

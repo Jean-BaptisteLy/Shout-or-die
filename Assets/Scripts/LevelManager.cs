@@ -15,6 +15,7 @@ public class LevelManager : MonoBehaviour
     private PlayerStats playerStats;
     private TMPro.TextMeshProUGUI text;
     private Timer timer;
+    private MenuPause mp;
     
     void Start(){
         currentLevel = 0;
@@ -24,6 +25,7 @@ public class LevelManager : MonoBehaviour
         playerStats = gameObject.GetComponent<PlayerStats>();
         TMPro.TextMeshProUGUI text = GameObject.Find("Canvas").GetComponentInChildren<TMPro.TextMeshProUGUI>();
         timer = text.GetComponent<Timer>();
+        mp = gameObject.GetComponent<MenuPause>();
     }
 
     void Update(){
@@ -40,12 +42,8 @@ public class LevelManager : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col){
     	if (col.collider.tag == "end"){
             changeOfLevel();
-            /*
-            Debug.Log("je réinitialise correctement");
-            playerStats.reinitStats();
-            timer.restartTimer();
-            */
         }
+
         else if (col.collider.tag == "Death") {
             restartCurrentLevel();
         }
@@ -60,11 +58,13 @@ public class LevelManager : MonoBehaviour
         timer.restartTimer();
         logWritter.resetLogger(currentLevel);
     }
+
     public void changeOfLevel(){ // BUG
         Debug.Log("Change of level");
         currentLevel++;
         SceneManager.LoadScene("Level " + currentLevel);
         pm.resetPosition();
+        mp.inverseFeedbackBool();
         //logWritter.flushLevelLogger();
         playerStats.updateLevelEndingStats();
         playerStats.upgradeLevelNumber();
@@ -78,12 +78,9 @@ public class LevelManager : MonoBehaviour
         //removeAllCoins();
     }
     public void removeAllCoins() {
-        //Debug.Log("Inside remove all coins");
         if (playerStats.currentCategory == 0 && playerStats.currentLevel != 0) {
             foreach (GameObject obj in Object.FindObjectsOfType(typeof(GameObject))){
-                //Debug.Log("GameObject found");
                 if (obj.tag == "coin") {
-                    //Debug.Log("It's a coin!");
                     Destroy(obj);
                 }
             }
