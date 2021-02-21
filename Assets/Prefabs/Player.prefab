@@ -110,7 +110,6 @@ GameObject:
   - component: {fileID: 919699045}
   - component: {fileID: 919699049}
   - component: {fileID: 919699048}
-  - component: {fileID: 919699047}
   - component: {fileID: 919699046}
   m_Layer: 5
   m_Name: CoinsText
@@ -235,22 +234,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &919699047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919699044}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9f894938da274fb4b0c2e9dcef9301c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rb: {fileID: 0}
-  player: {fileID: 0}
-  xOffset: 0
-  yOffset: 0
 --- !u!114 &919699046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -842,7 +825,6 @@ GameObject:
   - component: {fileID: 1094173846}
   - component: {fileID: 1094173847}
   - component: {fileID: 1094173848}
-  - component: {fileID: 8283349583444599880}
   - component: {fileID: 1018324717}
   m_Layer: 6
   m_Name: Player
@@ -1152,6 +1134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeRatioList: []
   playerCategory: 0
+  featuresOptCurve: 
 --- !u!114 &1094173845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1205,19 +1188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea1a151de24194784a17b1a2dfa55151, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8283349583444599880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7818214282200244594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b17a05431857e94eb51df8af20259e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeIsUp: 0
 --- !u!114 &1018324717
 MonoBehaviour:
   m_ObjectHideFlags: 0

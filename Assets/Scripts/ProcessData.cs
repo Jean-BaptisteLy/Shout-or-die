@@ -18,11 +18,11 @@ public class ProcessData : MonoBehaviour
     private int lastPlayedLevel;
 
     private PlayerMovement pm;
-    private int totalJumps;
 
-    // shit
     private Timer timer;
     private PlayerStats playerStats;
+
+    public List<int> featuresOptCurve;
 
     void Start(){
         lastPlayedLevel = 0;
@@ -32,20 +32,18 @@ public class ProcessData : MonoBehaviour
         pm = gameObject.GetComponent<PlayerMovement>();
         timer = gameObject.GetComponent<Timer>();
         playerStats = gameObject.GetComponent<PlayerStats>();
+        featuresOptCurve = new List<int>();
+        featuresOptCurve.Add(8); // for level 0
+        featuresOptCurve.Add(7); // for level 1
+        featuresOptCurve.Add(9); // for level 2
+        featuresOptCurve.Add(9); // for level 3
     }
     public void addPlayerStats(int coinsCollected, int coinsTotal, float timePlayer, float timeOptimal){
-        processDataCurve();
         addRatios(coinsCollected, coinsTotal, timePlayer, timeOptimal);
         playerCategory = getUpdatedCategory();
 
     }
-    // Update is called once per frame
-    void Update(){
-        
-    }
-    public void processData(){
-        // put what we have on start here
-    }
+
     private string getPath(){
         // return Application.dataPath + "/../Data/data-2021-01-28_04-44-33.csv";
         return Application.dataPath + "/../Data/test.csv";
@@ -78,11 +76,12 @@ public class ProcessData : MonoBehaviour
     }
 
     private int getUpdatedCategory(){
-            // Possible categories:
-            // 0: slow and bad 
-            // 1: fast but bad
-            // 2: slow but good
-            // 3: fast and good
+        // Possible categories:
+        // 0: slow and bad 
+        // 1: fast but bad
+        // 2: slow but good
+        // 3: fast and good
+
         // gamma for quality: importance of current score
         float gammaOne = 0.7f;
         // gamma for time: importance of current score
@@ -94,8 +93,7 @@ public class ProcessData : MonoBehaviour
 
         if (lastPlayedLevel == 0){
             // do something else
-            // Debug.Log("Level0 coins Ratio: " + coinsRatioList[lastPlayedLevel]);
-            fOne = coinsRatioList[lastPlayedLevel];
+            fOne = 0.5f*coinsRatioList[lastPlayedLevel] + 0.5f*processDataCurve();
             // specific data-processing for level 0 because it is an initialization level
             fTwo = timeRatioList[lastPlayedLevel];
             
@@ -103,7 +101,7 @@ public class ProcessData : MonoBehaviour
             fOne = gammaOne*coinsRatioList[lastPlayedLevel] + (1-gammaOne)*coinsRatioList[lastPlayedLevel-1];
             fTwo = gammaTwo*timeRatioList[lastPlayedLevel] + (1-gammaTwo)*timeRatioList[lastPlayedLevel-1];
         }
-        Debug.Log("Last played level: " + lastPlayedLevel);
+        // Debug.Log("Last played level: " + lastPlayedLevel);
         Debug.Log("fOne: " + fOne + ", fTwo:" + fTwo);
         if (fOne >= 0.5){
             if (fTwo >= 0.5){
@@ -122,7 +120,6 @@ public class ProcessData : MonoBehaviour
                 // Mauvais et lent
                 playerCategory = 0;
             }
-
         }
         
         return playerCategory;
@@ -132,17 +129,24 @@ public class ProcessData : MonoBehaviour
     private float processDataCurve(){
         List<float> loudnessData = gameObject.GetComponent<LogWritter>().getLoudnessData();
         float jumpThresh = pm.jumpLoudnessThreshold;
-        totalJumps = 0;
+        int featuresFound = 0;
+        float curveScore;
         // Debug.Log("Total data lines: " + loudnessData.Count);
         for (int i = 1; i < loudnessData.Count; i++){
             // check if player jumped
             if ((loudnessData[i-1] < jumpThresh) && (loudnessData[i] >= jumpThresh)){
-                // Debug.Log("Jumped at " + i);
-                totalJumps++;
+                featuresFound++;
             }
         }
+
+
         // Debug.Log("Total jumps: " + totalJumps);
-        return 1.0f;
+        if (featuresFound < featuresOptCurve[lastPlayedLevel]){
+            curveScore = 1.0f;
+        }else{
+            curveScore = (featuresFound*1.0f)/featuresOptCurve[lastPlayedLevel];
+        }
+        return curveScore;
     }
 
     public void upgradelastPlayedLevelNumber(){

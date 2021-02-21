@@ -25,7 +25,7 @@ public class PlayerStats : MonoBehaviour
     public int currentLevel = 0;
     public TMPro.TextMeshProUGUI text;
     public Timer timer;
-    // Start is called before the first frame update
+
     void Start(){
         pd = gameObject.GetComponent<ProcessData>();
         // nbCoins = 0;
@@ -40,11 +40,6 @@ public class PlayerStats : MonoBehaviour
         // timeOptimal = levelInfo["Level" + currentLevel].Item2 + (levelInfo["Level" + currentLevel].Item2 * (1 - pd.timeRatioList[pd.timeRatioList.Count - 1]));
         text = GameObject.Find("Canvas").GetComponentInChildren<TMPro.TextMeshProUGUI>();
         timer = text.GetComponent<Timer>();
-    }
-
-    // Update is called once per frame
-    void Update(){
-        
     }
 
     public void addCoin(){
@@ -70,19 +65,8 @@ public class PlayerStats : MonoBehaviour
     public void updateLevelEndingStats(){
         endingTime = DateTime.Now;
         totalTime = (endingTime - startingTime).TotalSeconds;
-        // Debug.Log("Inside update level ending stats");
-        // TO DO: extract this info (timeopt and totalcoins) automatically from level info once it has been generated
-        // Debug.Log("updatelevelendinstats calling addplayerstats");
         // no player category for the very first level (initialization level)
         if (currentLevel != 0){
-        //     Debug.Log("Current level: " + currentLevel);
-        //     // TODO: check if it works
-        //     coinsTotal = levelInfo["Level" + currentLevel].Item1;
-        //     timeOptimal = levelInfo["Level" + currentLevel].Item2;
-        //     // replace by thing here below later
-        //     // coinsTotal = levelInfo["Level" + currentLevel + "." + currentCategory].Item1;
-        //     // timeOptimal = levelInfo["Level" + currentLevel + "." + currentCategory].Item2;
-        // }
         // temps optimal adapté au ratio temps du joueur
             timeOptimal = levelInfo["Level" + currentLevel].Item2 + (levelInfo["Level" + currentLevel].Item2 * (1 - pd.timeRatioList[pd.timeRatioList.Count - 1]));
         }else{

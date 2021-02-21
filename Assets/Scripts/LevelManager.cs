@@ -41,7 +41,20 @@ public class LevelManager : MonoBehaviour
     // Changing of level
     void OnCollisionEnter2D(Collision2D col){
     	if (col.collider.tag == "end"){
-            changeOfLevel();
+            Debug.Log(currentLevel);
+            if (currentLevel == 3){
+                Debug.Log("Finished all levels");
+                playerStats.updateLevelEndingStats();
+                playerStats.upgradeLevelNumber();
+                // playerStats.reinitStats();
+                // timer.restartTimer();
+                logWritter.writeDownStats();
+                logWritter.flushLevelLogger();
+                // logWritter.startNewLevelLogger(currentLevel);
+                SceneManager.LoadScene("Results");
+            }else{
+                changeOfLevel();
+            }
         }
 
         else if (col.collider.tag == "Death") {

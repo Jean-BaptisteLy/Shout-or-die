@@ -111,13 +111,3 @@ public class MenuPause : MonoBehaviour
 		feedback = !feedback;
 	}
 }
-
-/*
-if (playerStats.currentCategory == 0) {
-			feedback = true;
-			if(GUI.Button(new Rect(Screen.width / 2 - 40, Screen.height / 2 - 20, 80, 40), "Resume"))
-			{
-				feedback = false;
-			}
-		}
-*/

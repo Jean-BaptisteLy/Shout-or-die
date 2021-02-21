@@ -45,7 +45,7 @@ public class LogWritter : MonoBehaviour{
     }
 
     public void startNewLevelLogger(int currentLevel){
-        Debug.Log("startNewleveLogger");
+        // Debug.Log("startNewleveLogger");
 
         // this function must be call at the beggining of each, and flush only to be called when changing the level
         loudnessFile = getLoudnessPath(currentLevel);
@@ -62,13 +62,13 @@ public class LogWritter : MonoBehaviour{
         // Write loudness info every nbSeconds
         coroutine = WaitAndWrite();
         StartCoroutine(coroutine);
-        Debug.Log("start coroutine");
+        // Debug.Log("start coroutine");
     }
 
     public void resetLogger(int currentLevel){
         // Debug.Log("ResetLogger");
         StopCoroutine(coroutine);
-        Debug.Log("resetLogger a stop coroutine");
+        // Debug.Log("resetLogger a stop coroutine");
         // writer.Close();
         if (writer != null){
              writer.Close();
@@ -81,7 +81,7 @@ public class LogWritter : MonoBehaviour{
         if (writer != null){
             writer.Flush();
             StopCoroutine(coroutine);
-            Debug.Log("flushLevelLogger a stop coroutine");
+            // Debug.Log("flushLevelLogger a stop coroutine");
         }
         //writer.Close();
         // writer = null;

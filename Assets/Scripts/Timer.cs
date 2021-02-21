@@ -12,7 +12,7 @@ public class Timer : MonoBehaviour
     private PlayerStats ps;
     private ProcessData pd;
     private PlayerMovement pm;
-    // Start is called before the first frame update
+
     void Start(){
         text = GetComponent<TMPro.TextMeshProUGUI>();
         ps = GameObject.Find("Player").GetComponent<PlayerStats>();
@@ -23,7 +23,6 @@ public class Timer : MonoBehaviour
         timeStay = ps.timeOptimal;
     }
 
-    // Update is called once per frame
     void Update(){
         elapsedTime += Time.deltaTime;
         timeLeft -= Time.deltaTime;
@@ -35,7 +34,6 @@ public class Timer : MonoBehaviour
         }else{
             // slow and bad
             if(ps.currentCategory != 0) {
-                //Debug.Log("Timer.cs : playerCategory = 0");
                 if (ps.currentCategory == 1){
                     text.text = "Time left: " + Mathf.Round(timeLeft);
                 }else if (ps.currentCategory == 3){
@@ -50,11 +48,10 @@ public class Timer : MonoBehaviour
     }
 
     public void restartTimer(){
-        Debug.Log("restartTimer");
         elapsedTime = 0.0f;
         //timeLeft = ps.timeOptimal;
         pd.playerCategory = ps.currentCategory;
-        Debug.Log("shit :"+pd.playerCategory);
+
         if (pd.playerCategory == 0) {
             timeLeft = 9999; // infini
             timeStay = 9999;
