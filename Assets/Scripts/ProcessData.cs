@@ -20,13 +20,18 @@ public class ProcessData : MonoBehaviour
     private PlayerMovement pm;
     private int totalJumps;
 
+    // shit
+    private Timer timer;
+    private PlayerStats playerStats;
+
     void Start(){
         lastPlayedLevel = 0;
 
         coinsRatioList = new List<float>();
         timeRatioList = new List<float>();
         pm = gameObject.GetComponent<PlayerMovement>();
-
+        timer = gameObject.GetComponent<Timer>();
+        playerStats = gameObject.GetComponent<PlayerStats>();
     }
     public void addPlayerStats(int coinsCollected, int coinsTotal, float timePlayer, float timeOptimal){
         processDataCurve();
@@ -119,6 +124,7 @@ public class ProcessData : MonoBehaviour
             }
 
         }
+        
         return playerCategory;
     }
 

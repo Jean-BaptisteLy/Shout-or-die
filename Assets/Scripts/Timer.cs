@@ -50,10 +50,14 @@ public class Timer : MonoBehaviour
     }
 
     public void restartTimer(){
+        Debug.Log("restartTimer");
         elapsedTime = 0.0f;
         //timeLeft = ps.timeOptimal;
+        pd.playerCategory = ps.currentCategory;
+        Debug.Log("shit :"+pd.playerCategory);
         if (pd.playerCategory == 0) {
             timeLeft = 9999; // infini
+            timeStay = 9999;
         }
         else if (pd.playerCategory == 1) {
             // time left
@@ -63,6 +67,7 @@ public class Timer : MonoBehaviour
         else if (pd.playerCategory == 2) {
             // time initial
             timeStay = (ps.timeOptimal / 2) / pd.timeRatioList[pd.timeRatioList.Count - 1];
+            timeLeft = 9999;
         }
         else if (pd.playerCategory == 3) {
             // time stay

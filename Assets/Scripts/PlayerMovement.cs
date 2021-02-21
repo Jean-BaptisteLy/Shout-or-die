@@ -49,12 +49,14 @@ public class PlayerMovement : MonoBehaviour
     {   
         //levelManager = GetComponent<LevelManager>();
         // Déplacement au microphone
+        /*
         foreach (var device in Microphone.devices)
         {
             Debug.Log("Name: " + device);
             //Debug.Log("Microphone.GetDeviceCaps : "+device.GetDeviceCaps);
         }
-
+        */
+        
         //Debug.Log(Microphone.GetDeviceCaps);
         rb = GetComponent<Rigidbody2D>();
         _audio = GetComponent<AudioSource>();

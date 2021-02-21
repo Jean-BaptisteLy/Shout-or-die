@@ -40,41 +40,50 @@ public class LevelManager : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col){
     	if (col.collider.tag == "end"){
             changeOfLevel();
+            /*
+            Debug.Log("je réinitialise correctement");
+            playerStats.reinitStats();
+            timer.restartTimer();
+            */
         }
         else if (col.collider.tag == "Death") {
             restartCurrentLevel();
         }
     }
 
-    public void restartCurrentLevel(){
-        Debug.Log("Restarting level");
+    public void restartCurrentLevel(){ // OK
+        Debug.Log("Restarting current level");
         SceneManager.LoadScene("Level " + currentLevel);
         pm.resetPosition();
-        logWritter.resetLogger(currentLevel);
+        //logWritter.resetLogger(currentLevel);
         playerStats.reinitStats();
         timer.restartTimer();
+        logWritter.resetLogger(currentLevel);
     }
-    public void changeOfLevel(){
+    public void changeOfLevel(){ // BUG
         Debug.Log("Change of level");
         currentLevel++;
         SceneManager.LoadScene("Level " + currentLevel);
         pm.resetPosition();
-        logWritter.flushLevelLogger();
+        //logWritter.flushLevelLogger();
         playerStats.updateLevelEndingStats();
         playerStats.upgradeLevelNumber();
-        logWritter.writeDownStats();
-        logWritter.startNewLevelLogger(currentLevel);
         playerStats.reinitStats();
         timer.restartTimer();
+        logWritter.writeDownStats();
+        logWritter.flushLevelLogger();
+        logWritter.startNewLevelLogger(currentLevel);
+        //playerStats.reinitStats();
+        //timer.restartTimer();
         //removeAllCoins();
     }
     public void removeAllCoins() {
-        Debug.Log("Inside remove all coins");
+        //Debug.Log("Inside remove all coins");
         if (playerStats.currentCategory == 0 && playerStats.currentLevel != 0) {
             foreach (GameObject obj in Object.FindObjectsOfType(typeof(GameObject))){
-                Debug.Log("GameObject found");
+                //Debug.Log("GameObject found");
                 if (obj.tag == "coin") {
-                    Debug.Log("It's a coin!");
+                    //Debug.Log("It's a coin!");
                     Destroy(obj);
                 }
             }
