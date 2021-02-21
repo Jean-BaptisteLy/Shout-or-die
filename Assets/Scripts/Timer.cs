@@ -58,6 +58,7 @@ public class Timer : MonoBehaviour
         else if (pd.playerCategory == 1) {
             // time left
             timeLeft = (ps.timeOptimal / 2) / pd.timeRatioList[pd.timeRatioList.Count - 1];
+            timeStay = 9999;
         }
         else if (pd.playerCategory == 2) {
             // time initial
