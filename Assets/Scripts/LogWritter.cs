@@ -88,7 +88,7 @@ public class LogWritter : MonoBehaviour{
     }
 
     private IEnumerator WaitAndWrite(){
-        Debug.Log("la coroutine commence");
+        // Debug.Log("la coroutine commence");
         while(true){
             // Debug.Log("coroutine");
             totalTime = (DateTime.Now - startTime).TotalSeconds;

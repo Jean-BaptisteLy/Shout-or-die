@@ -54,7 +54,7 @@ public class ProcessData : MonoBehaviour
         float levelCoinsRatio = (coinsCollected*1.0f)/coinsTotal;
         // Debug.Log("levelCoinsRatio: " + coinsCollected + "/" + coinsTotal +"= " + levelCoinsRatio);
         float levelTimeRatio;
-        Debug.Log("LevelInfo: " + "timeOpt: " + timeOptimal + "timePlayer" + timePlayer);
+        // Debug.Log("LevelInfo: " + "timeOpt: " + timeOptimal + "timePlayer" + timePlayer);
         if (lastPlayedLevel == 0){
             if (timePlayer < 20.0f){
                 levelTimeRatio = 1.0f;
@@ -102,7 +102,7 @@ public class ProcessData : MonoBehaviour
             fTwo = gammaTwo*timeRatioList[lastPlayedLevel] + (1-gammaTwo)*timeRatioList[lastPlayedLevel-1];
         }
         // Debug.Log("Last played level: " + lastPlayedLevel);
-        Debug.Log("fOne: " + fOne + ", fTwo:" + fTwo);
+        // Debug.Log("fOne: " + fOne + ", fTwo:" + fTwo);
         if (fOne >= 0.5){
             if (fTwo >= 0.5){
                 // Bon et rapide
