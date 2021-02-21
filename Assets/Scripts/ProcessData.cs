@@ -13,6 +13,7 @@ public class ProcessData : MonoBehaviour
     private string[] words;
     private List<float> coinsRatioList;
     public List<float> timeRatioList;
+    public List<float> curveScores;
 
     public int playerCategory;
     private int lastPlayedLevel;
@@ -32,6 +33,7 @@ public class ProcessData : MonoBehaviour
         pm = gameObject.GetComponent<PlayerMovement>();
         timer = gameObject.GetComponent<Timer>();
         playerStats = gameObject.GetComponent<PlayerStats>();
+        curveScores = new List<float>();
         featuresOptCurve = new List<int>();
         featuresOptCurve.Add(8); // for level 0
         featuresOptCurve.Add(7); // for level 1
@@ -91,14 +93,16 @@ public class ProcessData : MonoBehaviour
         float fOne;
         float fTwo;
 
+        float curveScore = processDataCurve();
+
         if (lastPlayedLevel == 0){
             // do something else
-            fOne = 0.5f*coinsRatioList[lastPlayedLevel] + 0.5f*processDataCurve();
+            fOne = 0.5f*coinsRatioList[lastPlayedLevel] + 0.5f*curveScore;
             // specific data-processing for level 0 because it is an initialization level
             fTwo = timeRatioList[lastPlayedLevel];
             
         }else{
-            fOne = gammaOne*coinsRatioList[lastPlayedLevel] + (1-gammaOne)*coinsRatioList[lastPlayedLevel-1];
+            fOne = gammaOne*(0.7f*coinsRatioList[lastPlayedLevel]+0.3f*curveScore) + (1-gammaOne)*coinsRatioList[lastPlayedLevel-1];
             fTwo = gammaTwo*timeRatioList[lastPlayedLevel] + (1-gammaTwo)*timeRatioList[lastPlayedLevel-1];
         }
         // Debug.Log("Last played level: " + lastPlayedLevel);
@@ -120,6 +124,12 @@ public class ProcessData : MonoBehaviour
                 // Mauvais et lent
                 playerCategory = 0;
             }
+        }
+
+        if (lastPlayedLevel == 3){
+            TransmitInfo ti = GameObject.Find("Info").GetComponent<TransmitInfo>();
+            Debug.Log(playerCategory + "," + coinsRatioList[lastPlayedLevel] + "," + timeRatioList[lastPlayedLevel] + "," + curveScores[lastPlayedLevel]);
+            ti.setInfo(playerCategory, coinsRatioList[lastPlayedLevel], timeRatioList[lastPlayedLevel], curveScores[lastPlayedLevel]);
         }
         
         return playerCategory;
@@ -146,11 +156,20 @@ public class ProcessData : MonoBehaviour
         }else{
             curveScore = (featuresFound*1.0f)/featuresOptCurve[lastPlayedLevel];
         }
+        curveScores.Add(curveScore);
         return curveScore;
     }
 
     public void upgradelastPlayedLevelNumber(){
         lastPlayedLevel++;
     }
+
+    // void OnDestroy(){
+    //     if (lastPlayedLevel == 3){
+    //         TransmitInfo ti = GameObject.Find("Info").GetComponent<TransmitInfo>();
+    //         Debug.Log(playerCategory + "," + coinsRatioList[lastPlayedLevel] + "," + timeRatioList[lastPlayedLevel] + "," + curveScores[lastPlayedLevel]);
+    //         ti.setInfo(playerCategory, coinsRatioList[lastPlayedLevel], timeRatioList[lastPlayedLevel], curveScores[lastPlayedLevel]);
+    //     }
+    // }
 
 }

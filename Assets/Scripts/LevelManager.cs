@@ -54,7 +54,7 @@ public class LevelManager : MonoBehaviour
                 // logWritter.startNewLevelLogger(currentLevel);
                 SceneManager.LoadScene("Results");
                 GameObject player = GameObject.Find("Player");
-                player.SetActive(false);
+                Destroy(player);
             }else{
                 changeOfLevel();
             }
