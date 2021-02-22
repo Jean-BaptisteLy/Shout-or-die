@@ -67,7 +67,7 @@ public class LogWritter : MonoBehaviour{
     }
 
     public void resetLogger(int currentLevel){
-        Debug.Log(nbSeconds);
+        // Debug.Log(nbSeconds);
         // Debug.Log("ResetLogger");
         StopCoroutine(coroutine);
         // Debug.Log("resetLogger a stop coroutine");
