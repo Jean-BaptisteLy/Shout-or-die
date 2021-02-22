@@ -100,7 +100,7 @@ public class MenuPause : MonoBehaviour
 			else if (playerStats.currentCategory == 3) {
 				feedbackMessage = "You are doing well, keep on like that! \n Click here to continue.";
 			}
-			if (GUI.Button(new Rect(Screen.width / 2 - 40, Screen.height / 2 - 20, 480, 80), feedbackMessage) && feedback) {
+			if (GUI.Button(new Rect(Screen.width / 2 - 30, Screen.height / 2 - 20, 480, 80), feedbackMessage) && feedback) {
 				feedback = false;
 			}
 		}

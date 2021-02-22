@@ -102,7 +102,7 @@ public class ProcessData : MonoBehaviour
             fTwo = timeRatioList[lastPlayedLevel];
             
         }else{
-            fOne = gammaOne*(0.7f*coinsRatioList[lastPlayedLevel]+0.3f*curveScore) + (1-gammaOne)*coinsRatioList[lastPlayedLevel-1];
+            fOne = gammaOne*(0.8f*coinsRatioList[lastPlayedLevel]+0.2f*curveScore) + (1-gammaOne)*coinsRatioList[lastPlayedLevel-1];
             fTwo = gammaTwo*timeRatioList[lastPlayedLevel] + (1-gammaTwo)*timeRatioList[lastPlayedLevel-1];
         }
         // Debug.Log("Last played level: " + lastPlayedLevel);
@@ -128,7 +128,7 @@ public class ProcessData : MonoBehaviour
 
         if (lastPlayedLevel == 3){
             TransmitInfo ti = GameObject.Find("Info").GetComponent<TransmitInfo>();
-            Debug.Log(playerCategory + "," + coinsRatioList[lastPlayedLevel] + "," + timeRatioList[lastPlayedLevel] + "," + curveScores[lastPlayedLevel]);
+            // Debug.Log(playerCategory + "," + coinsRatioList[lastPlayedLevel] + "," + timeRatioList[lastPlayedLevel] + "," + curveScores[lastPlayedLevel]);
             ti.setInfo(playerCategory, coinsRatioList[lastPlayedLevel], timeRatioList[lastPlayedLevel], curveScores[lastPlayedLevel]);
         }
         

@@ -23,12 +23,13 @@ public class LogWritter : MonoBehaviour{
     private string statsFile;
     private StreamWriter statsWriter;
     private int currentLevel;
-    public float nbSeconds = 1.0f;
+    private float nbSeconds;
 
     // Start is called before the first frame update
     void Start(){
         // Debug.Log("LogWritter started");
         currentLevel = 0;
+        nbSeconds = 0.5f;
         pm = gameObject.GetComponent<PlayerMovement>();
         ps = gameObject.GetComponent<PlayerStats>();
         startNewLevelLogger(0);
@@ -66,6 +67,7 @@ public class LogWritter : MonoBehaviour{
     }
 
     public void resetLogger(int currentLevel){
+        Debug.Log(nbSeconds);
         // Debug.Log("ResetLogger");
         StopCoroutine(coroutine);
         // Debug.Log("resetLogger a stop coroutine");
@@ -146,4 +148,21 @@ public class LogWritter : MonoBehaviour{
     public void updateLevelNumber(){
         currentLevel++;
     }
+
+
+    public void writeThreshOnFile(float moveThresh, float jumpThresh){
+        string threshFile = Application.dataPath + "/../Data/thresh.csv";
+        StreamWriter threshWriter;
+        if (!File.Exists(threshFile)){
+            threshWriter = new StreamWriter(threshFile);
+        }else{
+            File.Delete(threshFile);
+            threshWriter = new StreamWriter(threshFile);
+        }
+        threshWriter.WriteLine("moveThresh,jumpThresh");
+        threshWriter.WriteLine(moveThresh + "," + jumpThresh);
+        threshWriter.Flush();
+        threshWriter.Close();
+    }
+        
 }

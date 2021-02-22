@@ -72,6 +72,8 @@ public class PlayerMovement : MonoBehaviour
         Calibration calibration = GameObject.Find("Thresholds").GetComponent<Calibration>();
         runLoudnessThreshold = calibration.moveThresh;
         jumpLoudnessThreshold = calibration.jumpThresh;
+        LogWritter lw = gameObject.GetComponent<LogWritter>();
+        lw.writeThreshOnFile(runLoudnessThreshold, jumpLoudnessThreshold);
 
     }
 

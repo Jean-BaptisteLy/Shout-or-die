@@ -29,6 +29,6 @@ public class TransmitInfo : MonoBehaviour{
 
     public void displayOverviewResults(){
         text = GameObject.Find("Canvas").GetComponentInChildren<TMPro.TextMeshProUGUI>();
-        text.text = "Final results:\n" + "\nPlayer category:"+ playerCategory + "\nCoins ratio: " + ratioCoins + "\nTime ratio: " + ratioTime + "\nCurve score: " + curveScore + "\n *See Jupyter Notebook to display the curve*";
+        text.text = "Final results:\n" + "\nPlayer category: " + playerCategory + "\nCoins ratio: " + ratioCoins + "\nTime ratio: " + ratioTime + "\nCurve score: " + curveScore + "\n *See Jupyter Notebook to display the curve*";
     }
 }

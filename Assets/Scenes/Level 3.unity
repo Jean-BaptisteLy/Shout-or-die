@@ -1869,6 +1869,7 @@ GameObject:
   - component: {fileID: 937727626}
   - component: {fileID: 937727625}
   - component: {fileID: 937727628}
+  - component: {fileID: 937727629}
   m_Layer: 0
   m_Name: Info
   m_TagString: Untagged
@@ -1966,6 +1967,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ratioCoins: 0
+--- !u!114 &937727629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937727624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c95047d9b54f432ea4db730369f94e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1052659015
 PrefabInstance:
   m_ObjectHideFlags: 0
